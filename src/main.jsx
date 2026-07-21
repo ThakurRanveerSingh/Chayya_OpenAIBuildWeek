@@ -136,6 +136,12 @@ function RecordingReliability({ workflow }) {
   return <section className={`recordingReliability ${reliability.ok ? 'passed' : 'needsWork'}`}><span className="eyebrow">REUSABILITY PREFLIGHT</span><h2>{reliability.ok ? 'This capture passed the repeatability check.' : 'This capture needs a safer step before it can become a job.'}</h2><p>{reliability.summary}</p>{reliability.issues?.length ? <ul>{reliability.issues.map(issue => <li key={issue.code}><b>{issue.message}</b><small>{issue.fix}</small></li>)}</ul> : <small>The exact original capture stays available for your review. This check only blocks known fragile patterns before a runnable job is saved.</small>}</section>;
 }
 
+function IntentBrief({ workflow }) {
+  const intent = workflow.intent;
+  if (!intent) return null;
+  return <section className="intentCard"><div><span>DECLARED INTENT</span><b>{intent.label}</b><small>{intent.summary}</small></div><div><span>METHOD</span><b>{intent.method}</b><small>Chayya does not guess the goal; the user’s named job and recorded actions remain the source of truth.</small></div><div><span>SAFETY PROMISE</span><b>Review before replay</b><small>{intent.safeguards?.[2] || 'Visible rehearsal is required before background replay.'}</small></div></section>;
+}
+
 function hasVisibleReplay(workflow) {
   const execution = workflow.execution;
   if (!execution?.scriptFingerprint) return false;
@@ -364,6 +370,7 @@ function Workflow({ workflow, onChange }) {
       <div className="workflowActions"><button className="primary" onClick={startRecording} disabled={isRecording}>● {isRecording ? 'Recorder open' : 'Record this job'}</button><button onClick={prepareCode} disabled={!hasRecording || !isReliable}>Review & optimize</button><button onClick={duplicate}>Duplicate</button><button className="danger" onClick={remove}>Delete</button></div>
     </section>
     {notice && <div className="notice">✦ {notice}</div>}
+    <IntentBrief workflow={current}/>
     {current.source && <div className="adapterNote">{current.source}: this job is a resilient, reusable search template rather than a recording of your personal clicks. Re-record it anytime to tailor it.</div>}
     <JobJourney workflow={current} hasRecording={hasRecording} isRecording={isRecording} isReliable={isReliable} onRecord={startRecording} onPrepare={prepareCode} onFocusRun={focusRunPanel}/>
     {isRecording && <LiveMatchdayCoach steps={liveSteps} waits={current.pendingWaits || []} onConfigure={queueLiveWait}/>} 

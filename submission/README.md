@@ -4,6 +4,15 @@
 
 Chayya is a local-first workflow automation companion for people who repeat browser and desktop-adjacent work. It records a browser task once, turns the capture into a plain-English SOP and Rule Book, lets the owner review and safely optimize it, then reruns the approved job visibly or in the background. Every important decision, rule, and run is inspectable.
 
+## Education focus
+
+Chayya’s primary Build Week focus is AI for education through transparent, reusable learning workflows—not answer generation or automated grading. The stable demo set includes two end-to-end education workflows:
+
+1. **Student Study Brief:** topic + learning goal → Find → Explain → Check → teacher/peer review.
+2. **Teacher Lesson-Plan Brief:** grade level + lesson topic + objective → trusted-source and activity preparation → teacher review before classroom use.
+
+Both workflows preserve the learner/teacher’s declared goal, exact browser actions, review rules, SOP/Rule Book, and replay proof.
+
 ## Technical implementation: Codex + GPT-5.6
 
 Codex with GPT-5.6 was used as a collaborative development agent to accelerate implementation, testing, debugging, and documentation. It did **not** become an opaque end-user agent or a required runtime service: the included demo runs locally without an OpenAI API key or model call.

@@ -6,6 +6,15 @@ Chayya records a browser workflow with Playwright, automatically creates a detai
 
 Repository: <https://github.com/ThakurRanveerSingh/Chayya_OpenAIBuildWeek> · License: [MIT](LICENSE) · Judge-facing technical implementation: [submission/TECHNICAL_IMPLEMENTATION.md](submission/TECHNICAL_IMPLEMENTATION.md)
 
+## Education workflows
+
+Chayya primarily demonstrates AI-supported **learning process design**, not answer generation or automated grading.
+
+- **Student Study Brief:** A student declares a topic and learning goal, then captures a reusable **Find → Explain → Check** routine. The learner writes in their own words and brings open questions to a teacher or peer.
+- **Teacher Lesson-Plan Brief:** A teacher declares a grade level, lesson topic, and objective, then captures a reusable source-selection and lesson-preparation routine. The teacher reviews all sources, activities, and final decisions before classroom use.
+
+Both workflows produce exact captured actions, transparent review rules, a downloadable SOP/Rule Book, and proof of a visible replay. They are designed to increase learner agency and teacher consistency—not to replace instruction or make high-stakes educational decisions.
+
 ## Built with Codex + GPT-5.6
 
 Codex with GPT-5.6 was used as the project’s collaborative software-engineering partner. It accelerated the path from product idea to a tested MVP by helping translate requirements into an implementable architecture, generate and refine the code, investigate failures, and turn testing feedback into small, verifiable improvements. It is not an end-user runtime dependency: Chayya’s included demos run locally without an OpenAI API key or model call.
@@ -17,6 +26,7 @@ Codex with GPT-5.6 was used as the project’s collaborative software-engineerin
 | **Safe optimization** | Helped set and test a conservative rule: remove only exact adjacent duplicate navigation/form-entry actions, never silently rewrite the user’s intent. | The UI shows raw versus optimized steps and retains the original recording. |
 | **Transparent automation evidence** | Helped structure the SOP, Rule Book, run result, audit events, and execution-proof surfaces. | Judges can inspect what was captured, what changed, what ran, and the outcome. |
 | **Back-office workflow** | Helped generate the local source → rules → Excel mapping → target queues → proof design and implementation. | The back-office demo shows explainable invoice routing rather than a black-box browser replay. |
+| **Education workflow** | Helped extend the same safe automation pattern to a student’s explicit learning goal. | The Study brief builder demonstrates repeatable research, explanation, and human review—not automated grading. |
 | **Quality and debugging** | Helped troubleshoot recorder/browser-runtime setup, write tests, review security boundaries, and refine documentation. | `npm run check` exercises unit, integration, browser, Electron-security, and production-build checks. |
 
 Human direction remained central: the project owner chose the scope, safety boundaries, demos, and product decisions; Codex accelerated implementation and iteration. See [testingnewGPTFeatures.md](testingnewGPTFeatures.md) for the capability record.
@@ -45,8 +55,11 @@ The fastest reliable demonstration uses only included, first-party sample data�
 4. Return to the job and select **Record this job**. Complete the short task in the visible recorder, close the recorder, then inspect the captured steps, SOP, Rule Book, and generated code.
 5. Select **Review & optimize job** to compare the original recording with the conservative optimized version. Run it visibly again; **Background** becomes available only after an identical saved version passes visibly.
 6. Select **Back-office demo** for the business workflow: load the ten local invoice records, review the rules, route the job, and inspect the proof, mapped Excel workbook, FinanceHub queue, and ExceptionDesk queue.
+7. Open **Demo: Study brief builder** to show that the same trusted workflow model supports education: a topic and learning goal become a repeatable research-and-review brief.
 
 For a scripted 1–2 minute walkthrough, see [docs/DEMO_RUNBOOK.md](docs/DEMO_RUNBOOK.md).
+
+For a relatable personal demo, choose **Add four public-search starter jobs instead** and open **Wireless earbuds under $100 research**. It starts with a Bing search, exposes the declared intent and safety brief, and is designed to be re-recorded into the user’s own comparison workflow.
 
 ## Sample data and local artifacts
 

@@ -30,20 +30,22 @@ const starterTemplates = [
   },
   {
     key: 'shopping-best-deals',
-    name: 'Best deals shopping research',
-    startUrl: 'https://www.bing.com/search?q=best+deals+wireless+earbuds+Amazon+eBay',
-    code: "import { test, expect } from '@playwright/test';\n\ntest('search best deals across Amazon and eBay', async ({ page }) => {\n  await page.goto('https://www.bing.com/search?q=best+deals+wireless+earbuds+Amazon+eBay', { waitUntil: 'domcontentloaded' });\n  await expect(page).toHaveURL(/bing\\.com\\/search/);\n  await expect(page).toHaveTitle(/best deals wireless earbuds Amazon eBay/i);\n});\n"
+    name: 'Wireless earbuds under $100 research',
+    startUrl: 'https://www.bing.com/search?q=best+wireless+earbuds+under+%24100+battery+life+reviews',
+    code: "import { test, expect } from '@playwright/test';\n\ntest('research wireless earbuds under $100', async ({ page }) => {\n  await page.goto('https://www.bing.com/search?q=best+wireless+earbuds+under+%24100+battery+life+reviews', { waitUntil: 'domcontentloaded' });\n  await expect(page).toHaveURL(/bing\\.com\\/search/);\n  await expect(page).toHaveTitle(/wireless earbuds.*100|best wireless earbuds/i);\n});\n"
   }
 ];
 
 const controlledDemoTemplates = [
   {
-    key: 'anukriti-fifa-briefing', name: 'Demo: FIFA World Cup briefing', startPath: '/demo-websites/anukriti-fifa-briefing.html',
-    code: "import { test, expect } from '@playwright/test';\n\ntest('build a FIFA World Cup briefing', async ({ page }) => {\n  await page.goto(process.env.ANUKRITI_CONTROLLED_DEMO_ORIGIN + '/demo-websites/anukriti-fifa-briefing.html');\n  await page.getByLabel('Briefing topic').fill('FIFA World Cup 2026');\n  await page.getByRole('button', { name: 'Build briefing' }).click();\n  await expect(page.getByRole('heading', { name: 'FIFA World Cup briefing ready' })).toBeVisible();\n});\n"
+    key: 'teacher-lesson-brief', name: 'Teacher: lesson-plan research brief', startPath: '/demo-websites/anukriti-teacher-lesson-brief.html',
+    intent: { label: 'Teacher lesson-preparation workflow', summary: 'Turn a lesson topic, grade level, and learning objective into a repeatable research-and-review brief. The teacher reviews all material before classroom use.', method: 'Teacher-declared objective' },
+    code: "import { test, expect } from '@playwright/test';\n\ntest('build a teacher lesson-plan research brief', async ({ page }) => {\n  await page.goto(process.env.ANUKRITI_CONTROLLED_DEMO_ORIGIN + '/demo-websites/anukriti-teacher-lesson-brief.html');\n  await page.getByLabel('Grade level').fill('Grade 7');\n  await page.getByLabel('Lesson topic').fill('Water cycle');\n  await page.getByLabel('Learning objective').fill('Explain evaporation, condensation, and precipitation');\n  await page.getByRole('button', { name: 'Build lesson brief' }).click();\n  await expect(page.getByRole('heading', { name: 'Teacher lesson brief ready' })).toBeVisible();\n});\n"
   },
   {
-    key: 'anukriti-stock-snapshot', name: 'Demo: Stock technical snapshot', startPath: '/demo-websites/anukriti-stock-snapshot.html',
-    code: "import { test, expect } from '@playwright/test';\n\ntest('create a stock technical snapshot', async ({ page }) => {\n  await page.goto(process.env.ANUKRITI_CONTROLLED_DEMO_ORIGIN + '/demo-websites/anukriti-stock-snapshot.html');\n  await page.getByLabel('Stock symbol').fill('AAPL');\n  await page.getByRole('button', { name: 'Create snapshot' }).click();\n  await expect(page.getByRole('heading', { name: 'AAPL technical snapshot' })).toBeVisible();\n});\n"
+    key: 'anukriti-study-brief', name: 'Demo: Study brief builder', startPath: '/demo-websites/anukriti-study-brief.html',
+    intent: { label: 'Student study workflow', summary: 'Turn a topic and learning goal into a repeatable find → explain → check routine. The student owns the explanation and brings gaps to a teacher or peer.', method: 'Student-declared learning goal' },
+    code: "import { test, expect } from '@playwright/test';\n\ntest('build a study brief', async ({ page }) => {\n  await page.goto(process.env.ANUKRITI_CONTROLLED_DEMO_ORIGIN + '/demo-websites/anukriti-study-brief.html');\n  await page.getByLabel('Study topic').fill('Photosynthesis');\n  await page.getByLabel('Learning goal').fill('Explain the process in my own words');\n  await page.getByRole('button', { name: 'Build study brief' }).click();\n  await expect(page.getByRole('heading', { name: 'Study brief ready' })).toBeVisible();\n});\n"
   },
   {
     key: 'anukriti-deals-compare', name: 'Demo: Best-deals comparison', startPath: '/demo-websites/anukriti-deals-compare.html',
@@ -355,10 +357,17 @@ export function writeSopRuleBook(workflow, now = new Date().toISOString()) {
   return sop;
 }
 
+const intentFor = ({ name, startUrl }) => ({
+  label: name || 'User-declared browser task',
+  summary: startUrl ? `Start at ${startUrl}; capture the exact route and keep the result reviewable before any replay.` : 'Capture the exact route from the browser and keep the result reviewable before any replay.',
+  method: 'Explicit user-declared goal',
+  safeguards: ['Exact capture is retained.', 'Review notes are visible in the saved code.', 'A visible rehearsal is required before background replay.']
+});
+
 export const createWorkflow = ({ name, startUrl, platform = 'browser' }, ownerId) => ({
   id: crypto.randomUUID(), name: name || 'Untitled workflow', startUrl: startUrl || '', platform,
   steps: [], recordedSteps: [], optimizedSteps: [], riskySteps: [], waits: [], optimization: [], rules: [], sop: null, schedule: 'On demand', status: 'Draft', recordingFile: null, pendingRecordingFile: null, script: null,
-  ownerId, version: 1, runHistory: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
+  ownerId, intent: intentFor({ name, startUrl }), version: 1, runHistory: [], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
 });
 
 export function createStarterWorkflows(db, ownerId) {
@@ -387,6 +396,7 @@ export function createControlledDemoWorkflows(db, ownerId, controlledDemoOrigin)
     if (db.workflows.some(workflow => workflow.ownerId === ownerId && workflow.controlledDemoKey === template.key)) continue;
     const workflow = createWorkflow({ name: template.name, startUrl: `${controlledDemoOrigin}${template.startPath}` }, ownerId);
     workflow.controlledDemoKey = template.key; workflow.controlledDemo = true;
+    if (template.intent) workflow.intent = { ...intentFor(workflow), ...template.intent, safeguards: ['Use trusted sources chosen by the learner or teacher.', 'Keep explanations in the learner’s own words.', 'Review gaps with a teacher or peer before treating the work as complete.'] };
     workflow.source = 'Controlled local demo — re-record this stable page or run its verified job';
     workflow.recordingFile = recordingFilename(workflow); workflow.captureVersion = 1;
     fs.mkdirSync(path.dirname(automationPath(workflow.recordingFile)), { recursive: true });
