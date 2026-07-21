@@ -6,12 +6,9 @@ import { spawnSync } from 'node:child_process';
 const files = [
   'server/backoffice.test.js',
   'server/posable.test.js',
-  'server/resume.test.js',
   'server/security.test.js',
   'server/workflows.test.js',
   'server/workday.test.js',
-  'server/mac-numbers.test.js',
-  'server/numbers-research.test.js',
   'server/recording.integration.test.js',
   'server/browser.e2e.test.js',
   'server/controlled-demo.e2e.test.js'

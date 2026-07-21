@@ -14,9 +14,6 @@ flowchart LR
   P -->|needs work| R[Explain and re-record]
   J --> V[Visible or background run]
   V --> E[Run output and audit evidence]
-  N[Named Apple Numbers input table] --> X[Local research adapter]
-  X --> D[Reviewed output-table diff]
-  D -->|explicit approval| O[Named results table and chart refresh]
 ```
 
 - Browser capture is Playwright codegen. Raw capture remains visible and is never silently rewritten.
@@ -58,30 +55,6 @@ The full local Playwright test runs all five jobs against the app's own pages an
 
 The Odyssey Assistant is available from sign-in through sign-out. It gives deterministic local guidance and navigation help; it does not send a prompt, call a model, operate a browser, or share user data.
 
-## macOS Numbers feasibility
-
-Numbers 14.4 is installed on this Mac. Its native scripting dictionary exposes documents, sheets, tables, cells, formulas, and charts.
-
-Implemented now:
-
-- Detect the local Numbers installation and version.
-- On explicit user action, read the first table of the active sheet through a fixed AppleScript.
-- Bound extraction to 200 rows and 30 columns; normalize unused Numbers cells; do not send data to a cloud service.
-- Calculate totals, averages, minimums, and maximums from displayed numeric values.
-- Show the extracted table and an in-app visual proof. The inspection is audited without retaining table values in the audit record.
-- Capture only a named `Anukriti Research Input` table, with validated `Search term` and `Metric` columns.
-- Open a visible Bing query in the desktop shell, save user-verified numeric values with public HTTPS evidence, and label the controlled fallback honestly.
-- Create an immutable review proposal before writing only to the named `Anukriti Research Results` table after explicit confirmation.
-- Update a native Numbers chart that the user has pre-bound to that results table; the chart definition is never modified by Anukriti.
-
-Not enabled yet:
-
-- Recording arbitrary mouse/keyboard actions in macOS applications.
-- Modifying arbitrary spreadsheet cells, formulas, or chart definitions.
-- Creating a native Numbers chart from an arbitrary workbook.
-
-The implemented capability is template-driven: the user approves a dedicated Numbers template with a named input table and a pre-bound chart; Anukriti writes only to the named results table after showing a diff and receiving explicit approval. The chart then updates through Numbers' own data binding. This is safer and more repeatable than screen-coordinate automation.
-
 ## Feasibility boundaries
 
 | Request | Status | Reason |
@@ -90,17 +63,11 @@ The implemented capability is template-driven: the user approves a dedicated Num
 | Run in a visible browser | Available | User can see the replay and intervene. |
 | Run known public sites indefinitely | Not guaranteed | Page structure, logins, rate limits, and bot checks are external changes. |
 | Bypass CAPTCHA or bot verification | Not supported | Unsafe and outside the product boundary. |
-| Read an active Numbers table | Available on macOS | Uses a fixed, read-only AppleScript and explicit action. |
-| Calculate from Numbers data and show a visual | Available | Calculation is local and transparent; preview is in Chayya. |
-| Write approved values and update a pre-bound native Numbers chart | Available on macOS template mode | Requires the exact named tables, spare results rows, reviewed diff, confirmation, and macOS Automation permission. |
-| Create or redesign a native Numbers chart | Not supported | The app never changes chart definitions or arbitrary workbook layout. |
 | Replay arbitrary Mac desktop clicks | Not planned for this demo | Fragile and unsafe without app-specific accessibility contracts. |
 
 ## Verification evidence
 
-- Unit/API/browser checks cover security, workflow capture, wait insertion, business process routing, resume safety, Numbers payload parsing, and RBAC.
-- The Numbers adapter was exercised against a disposable native Numbers table. It correctly reduced the default 22×7 empty grid to the used 3×2 table and calculated Revenue total 2,000 and average 1,000.
-- The Numbers research adapter was exercised against a separate disposable template: two named inputs were captured, two approved values were written to the named results table through the authenticated API, and the exact values were read back.
+- Unit/API/browser checks cover security, workflow capture, wait insertion, business process routing, and RBAC.
 - The controlled demo integration test creates all five jobs, starts the local app server, and runs each job with real Playwright. All five pass.
 - `npm test` is deliberately serial: API/browser tests bind their own temporary localhost server and must not compete for ports.
 
@@ -112,8 +79,7 @@ During live capture, previews now redact sensitive values in memory only. The re
 
 ## Remaining production polish
 
-1. Package the Electron shell with signing/notarization and move the final macOS Automation execution behind the existing narrow preload/IPC boundary.
-2. Add an optional rollback snapshot for the named results table before each approved write.
-3. Add per-job selector health checks on each run and a repair suggestion flow for normal public-site changes.
-4. Add signed application updates, encrypted local secrets, and automated backup/restore before a real production launch.
-5. Add accessibility checks, screenshots/traces on failure, and CI execution on a clean macOS runner.
+1. Package the Electron shell with signing/notarization.
+2. Add per-job selector health checks on each run and a repair suggestion flow for normal public-site changes.
+3. Add signed application updates, encrypted local secrets, and automated backup/restore before a real production launch.
+4. Add accessibility checks, screenshots/traces on failure, and CI execution on a clean macOS runner.

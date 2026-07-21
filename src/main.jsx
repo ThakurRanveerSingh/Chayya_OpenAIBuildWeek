@@ -7,13 +7,10 @@ import './backoffice.css';
 import './target-links.css';
 import './backoffice-proof.css';
 import './process-capture.css';
-import './resume-tailor.css';
 import './matchday-bot.css';
-import './numbers-inspector.css';
 import './job-journey.css';
 import './sign-in.css';
 import './review-notes.css';
-import './numbers-research.css';
 import './achilles-theme.css';
 import './assistant.css';
 import './workday.css';
@@ -490,36 +487,6 @@ function BackOfficeDemo({ user }) {
   </main>;
 }
 
-function ResumeTailor({ user }) {
-  const [file, setFile] = useState(null); const [jobDescription, setJobDescription] = useState(''); const [job, setJob] = useState(null); const [notice, setNotice] = useState(''); const [error, setError] = useState(''); const [busy, setBusy] = useState(false); const [selected, setSelected] = useState([]);
-  const canEdit = ['admin', 'creator'].includes(user.role);
-  async function analyze(event) {
-    event.preventDefault(); if (!file) { setError('Choose your existing .docx, .txt, or .md resume first.'); return; }
-    try {
-      setBusy(true); setError(''); setNotice(''); const body = new FormData(); body.append('resume', file); body.append('jobDescription', jobDescription);
-      const response = await fetch('/api/resume/jobs/analyze', { method: 'POST', headers: { ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}) }, body }); const result = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(result.error || 'The resume could not be analyzed.');
-      setJob(result.job); setSelected(result.job.suggestions.filter(item => item.kind === 'surface').map(item => item.id)); setNotice('Alignment review ready. Select only the notes you want included in the separate Word review copy.');
-    } catch (nextError) { setError(nextError.message); } finally { setBusy(false); }
-  }
-  const toggle = id => setSelected(current => current.includes(id) ? current.filter(item => item !== id) : [...current, id]);
-  async function exportReview() {
-    if (!job) return;
-    try { setBusy(true); setError(''); const result = await request(`/api/resume/jobs/${job.id}/export`, { selectedSuggestionIds: selected }); setJob(result.job); setNotice('Word-compatible review copy generated. The original resume file has not been modified.'); }
-    catch (nextError) { setError(nextError.message); } finally { setBusy(false); }
-  }
-  async function download(url, filename) {
-    try { const response = await fetch(url, { headers: { Authorization: `Bearer ${authToken}` } }); if (!response.ok) throw new Error('The requested local artifact is unavailable.'); const objectUrl = URL.createObjectURL(await response.blob()); const link = document.createElement('a'); link.href = objectUrl; link.download = filename; link.click(); URL.revokeObjectURL(objectUrl); }
-    catch (nextError) { setError(nextError.message); }
-  }
-  async function clearJob() {
-    if (!job || !window.confirm('Delete this local resume analysis and all Word review copies?')) return;
-    try { await request(`/api/resume/jobs/${job.id}`, undefined, 'DELETE'); setJob(null); setSelected([]); setNotice('Local resume analysis and generated review copies were deleted.'); } catch (nextError) { setError(nextError.message); }
-  }
-  const latestExport = job?.exports?.[0];
-  return <main className="resumeTailor"><div className="back">LOCAL PRODUCTIVITY / RESUME ALIGNMENT</div><section className="resumeHero"><div><span className="eyebrow">PRIVATE · REVIEWABLE · WORD-COMPATIBLE</span><h1>Align your resume<br/>without inventing it.</h1><p>Use your existing resume and a job description to find evidence, gaps, and safe review notes. The original file is never overwritten; the app generates a separate Word review copy that you control.</p></div><aside><b>Local only</b><p>Your resume and job description are processed by this local app. No OpenAI API call or cloud model is used.</p><small>Supports text-based .docx, .txt, and .md files up to 2 MB.</small></aside></section><section className="resumeForm"><header><span className="eyebrow">1. INPUTS</span><h2>Choose the existing resume and paste the JD.</h2></header><form onSubmit={analyze}><label>Existing resume<input type="file" accept=".docx,.txt,.md,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={event => setFile(event.target.files?.[0] || null)} disabled={!canEdit}/><small>{file ? `${file.name} · ${(file.size / 1024).toFixed(0)} KB` : 'The original file remains unchanged.'}</small></label><label>Job description<textarea required minLength="40" value={jobDescription} onChange={event => setJobDescription(event.target.value)} placeholder="Paste the responsibilities, qualifications, and preferred skills…" disabled={!canEdit}/></label>{error && <div className="error">{error}</div>}<button className="primary" disabled={!canEdit || busy}>{busy ? 'Comparing locally…' : 'Analyze alignment →'}</button>{!canEdit && <p className="roleNote">Your {user.role} role can view the app but cannot process or export a resume.</p>}</form></section>{notice && <div className="notice">✦ {notice}</div>}{job && <><section className="resumeIntent"><div><span>STRUCTURED INTENT</span><b>{job.intent.label}</b><small>{job.intent.confidence}% schema match · local comparison</small></div><div><span>INPUT PROOF</span><b>{job.input.resume.fileName}</b><small>Resume hash {job.input.resume.sha256.slice(0, 12)} · JD hash {job.input.jobDescriptionHash.slice(0, 12)}</small></div><div><span>OUTCOME</span><b>{job.summary.evidenced} evidenced / {job.summary.notEvidenced} to review</b><small>Nothing is asserted without evidence.</small></div></section><section className="resumeMatrix"><header><div><span className="eyebrow">2. EVIDENCE MATRIX</span><h2>See what is present before changing anything.</h2><p>“Not evidenced” means this text was not found—not that you lack the skill or experience.</p></div></header><div className="dataTableWrap"><table><thead><tr><th>JD requirement</th><th>Result</th><th>Evidence from current resume</th></tr></thead><tbody>{job.requirements.map(requirement => <tr key={requirement.id}><td>{requirement.text}<small>{requirement.keywords.join(' · ')}</small></td><td><span className={`resumeStatus ${requirement.status.replaceAll(' ', '')}`}>{requirement.status}</span></td><td>{requirement.evidence.length ? requirement.evidence.map(item => <p key={item.keyword}><b>{item.keyword}:</b> {item.text}</p>) : 'No matching text found.'}</td></tr>)}</tbody></table></div></section><section className="resumeSuggestions"><header><div><span className="eyebrow">3. HUMAN REVIEW</span><h2>Choose the review notes to put in your new copy.</h2><p>These are prompts for your review, not automatic factual edits.</p></div></header><div className="suggestionList">{job.suggestions.map(suggestion => <label key={suggestion.id}><input type="checkbox" checked={selected.includes(suggestion.id)} onChange={() => toggle(suggestion.id)} disabled={!canEdit || busy}/><span><b>{suggestion.title}</b><small>{suggestion.detail}</small></span></label>)}</div><div className="resumeActions"><button className="primary" onClick={exportReview} disabled={!canEdit || busy}>{busy ? 'Generating Word copy…' : 'Generate separate Word review copy →'}</button><button onClick={() => download(`/api/resume/jobs/${job.id}/proof`, 'resume-alignment-proof.json')}>Download proof</button><button className="danger" onClick={clearJob} disabled={!canEdit}>Delete local analysis</button></div></section>{latestExport && <section className="resumeExport"><div><span className="eyebrow">4. OUTPUT</span><h2>Separate Word review copy ready.</h2><p>Created {new Date(latestExport.exportedAt).toLocaleString()} · file hash {latestExport.sha256.slice(0, 12)} · {latestExport.selectedSuggestionIds.length} selected review notes.</p></div><button className="primary" onClick={() => download(`/api/resume/jobs/${job.id}/exports/${latestExport.id}`, latestExport.filename)}>Download .docx →</button></section>}</>}</main>;
-}
-
 function formatNumber(value) { return new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(value); }
 
 function NumbersInspector({ user }) {
@@ -600,6 +567,6 @@ function App() {
   const logout = async () => { try { await request('/api/auth/logout', {}); } finally { authToken = ''; localStorage.removeItem('anukriti_session'); setUser(null); setWorkflows([]); setWorkday(null); setView('home'); } };
   const activeWorkflow = workflows.find(workflow => workflow.id === active?.id) || active;
   if (!user) return <SignIn onSignedIn={nextUser => { setUser(nextUser); refresh(); refreshWorkday(); }}/>;
-  return <><nav><button className="brand" onClick={() => setView('home')}>chayya<span>·</span></button><div><button className={view === 'home' ? 'active' : ''} onClick={() => setView('home')}>New browser job</button><button className={view === 'day' ? 'active' : ''} onClick={() => setView('day')}>Today{workday?.status === 'Active' ? <i>LIVE</i> : null}</button><button className={view === 'numbers' ? 'active' : ''} onClick={() => setView('numbers')}>Numbers bridge</button><button className={view === 'resume' ? 'active' : ''} onClick={() => setView('resume')}>Resume tailor</button><button className={view === 'backoffice' ? 'active' : ''} onClick={() => setView('backoffice')}>Back-office demo</button><button className={view === 'library' ? 'active' : ''} onClick={() => { refresh(); setView('library'); }}>Library <i>{workflows.length}</i></button></div><small>{user.name} · {user.role} · <button className="linkButton" onClick={logout}>Sign out</button></small></nav>{view === 'home' && <Create onCreated={workflow => { refresh(); open(workflow); }} onStarterJobs={addStarterJobs} onControlledDemoJobs={addControlledDemoJobs}/>} {view === 'day' && <WorkdayConsole request={request} initialWorkday={workday} onWorkdayChange={setWorkday}/>} {view === 'numbers' && <><NumbersInspector user={user}/><NumbersResearch user={user}/></>} {view === 'resume' && <ResumeTailor user={user}/>} {view === 'backoffice' && <BackOfficeDemo user={user}/>} {view === 'library' && <Library workflows={workflows} open={open}/>} {view === 'workflow' && activeWorkflow && <Workflow workflow={activeWorkflow} onChange={refresh}/>}<OdysseyAssistant signedIn view={view} onNavigate={setView}/></>;
+  return <><nav><button className="brand" onClick={() => setView('home')}>chayya<span>·</span></button><div><button className={view === 'home' ? 'active' : ''} onClick={() => setView('home')}>New browser job</button><button className={view === 'day' ? 'active' : ''} onClick={() => setView('day')}>Today{workday?.status === 'Active' ? <i>LIVE</i> : null}</button><button className={view === 'backoffice' ? 'active' : ''} onClick={() => setView('backoffice')}>Back-office demo</button><button className={view === 'library' ? 'active' : ''} onClick={() => { refresh(); setView('library'); }}>Library <i>{workflows.length}</i></button></div><small>{user.name} · {user.role} · <button className="linkButton" onClick={logout}>Sign out</button></small></nav>{view === 'home' && <Create onCreated={workflow => { refresh(); open(workflow); }} onStarterJobs={addStarterJobs} onControlledDemoJobs={addControlledDemoJobs}/>} {view === 'day' && <WorkdayConsole request={request} initialWorkday={workday} onWorkdayChange={setWorkday}/>} {view === 'backoffice' && <BackOfficeDemo user={user}/>} {view === 'library' && <Library workflows={workflows} open={open}/>} {view === 'workflow' && activeWorkflow && <Workflow workflow={activeWorkflow} onChange={refresh}/>}<OdysseyAssistant signedIn view={view} onNavigate={setView}/></>;
 }
 createRoot(document.getElementById('root')).render(<App/>);

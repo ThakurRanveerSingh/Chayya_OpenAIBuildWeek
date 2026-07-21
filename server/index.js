@@ -2,24 +2,19 @@ import 'dotenv/config';
 import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
-import multer from 'multer';
 import { authenticate, createSession, hasRole, publicUser, registerUser, revokeSession, sessionUser, validRole } from './auth.js';
 import { getTransactions, validate, writeWorkbook } from './posable.js';
 import { audit, readStore, record, writeStore } from './store.js';
 import { addFocusBlock, addWorkdayEvent, clearWorkdayForOwner, endWorkday, startWorkday, workdayForOwner, workdayResponse } from './workday.js';
 import { sanitizeTechnicalLog, validateAutomationUrl } from './security.js';
 import { configureWait, createControlledDemoWorkflows, createStarterWorkflows, createWorkflow, executionEvidence, generateScript, getRecording, hasVisiblePassForExecution, launchRecorder, parseFeedback, prepareScriptRun, runScript, summarizePlaywrightRun, writeSopRuleBook } from './workflows.js';
-import { inspectActiveNumbersTable, inspectNumbersResearchInput, numbersStatus, writeNumbersResearchResults } from './mac-numbers.js';
-import { createNumbersResearchJob, loadControlledResearchResults, numbersResearchJobForUser, prepareNumbersResearchProposal, saveManualResearchResult, visibleNumbersResearchJobs, writeApprovedNumbersResearch } from './numbers-research.js';
 import { approvedWorkbookPath, backofficeSummary, loadBackofficeQueue, optimizeBackofficeProcess, processJobForUser, proofReport, recordBackofficeProcess, runBackofficeDemo } from './backoffice.js';
-import { createResumeJob, exportResumeReview, extractResumeText, listResumeJobs, resumeExportPath, resumeJobForUser, resumeJobResponse, resumeProof } from './resume.js';
 
 const app = express();
 const port = process.env.PORT || 3001;
 const controlledDemoOrigin = `http://127.0.0.1:${port}`;
 const requestCounts = new Map();
 const apiMetrics = { startedAt: Date.now(), requests: 0, responses: new Map(), runs: new Map() };
-const resumeUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 2 * 1024 * 1024, files: 1 } });
 
 function routeLabel(req) {
   if (req.path.startsWith('/api/workflows')) return '/api/workflows';
@@ -211,92 +206,6 @@ app.delete('/api/workday/today', (req, res) => {
     auditAndSave(db, req.user, 'workday.cleared', 'workday', workday.id, { date: workday.date, focusMinutes: workdayResponse(workday).summary.focusMinutes, status: workday.status });
     res.json({ workday: null });
   } catch (error) { res.status(error.status || 400).json({ error: error.message }); }
-});
-app.get('/api/mac/numbers/status', (_, res) => res.json(numbersStatus()));
-app.post('/api/mac/numbers/inspect', requireRole('admin', 'creator'), async (req, res) => {
-  try {
-    const inspection = await inspectActiveNumbersTable();
-    const db = readStore();
-    auditAndSave(db, req.user, 'numbers.active_table_inspected', 'numbers_table', `${inspection.table.documentName}/${inspection.table.sheetName}/${inspection.table.tableName}`, { rows: inspection.table.rowCount, columns: inspection.table.columnCount, numericColumns: inspection.summary.numericColumns.length });
-    res.json(inspection);
-  } catch (error) { res.status(400).json({ error: error.message }); }
-});
-app.get('/api/mac/numbers/research/jobs', (req, res) => res.json(visibleNumbersResearchJobs(readStore(), req.user)));
-app.post('/api/mac/numbers/research/capture', requireRole('admin', 'creator'), async (req, res) => {
-  try {
-    const inspection = await inspectNumbersResearchInput(); const db = readStore(); const job = createNumbersResearchJob(inspection, req.user.id);
-    db.numbersResearchJobs ||= []; db.numbersResearchJobs.unshift(job); db.numbersResearchJobs = db.numbersResearchJobs.slice(0, 30);
-    auditAndSave(db, req.user, 'numbers.research_captured', 'numbers_research_job', job.id, { inputRows: job.inputs.length, inputFingerprint: job.template.inputFingerprint, tableName: job.template.inputTableName });
-    res.status(201).json({ job });
-  } catch (error) { res.status(400).json({ error: error.message }); }
-});
-app.post('/api/mac/numbers/research/:id/results', requireRole('admin', 'creator'), (req, res) => {
-  const db = readStore(); const found = numbersResearchJobForUser(db, req.params.id, req.user);
-  if (found.error) return res.status(found.error[0]).json({ error: found.error[1] });
-  try {
-    const job = saveManualResearchResult(found.job, req.body || {}); db.numbersResearchJobs[db.numbersResearchJobs.indexOf(found.job)] = job;
-    auditAndSave(db, req.user, 'numbers.research_result_saved', 'numbers_research_job', job.id, { inputId: req.body?.inputId, resultCount: job.results.length }); res.json({ job });
-  } catch (error) { res.status(400).json({ error: error.message }); }
-});
-app.post('/api/mac/numbers/research/:id/demo-results', requireRole('admin', 'creator'), (req, res) => {
-  const db = readStore(); const found = numbersResearchJobForUser(db, req.params.id, req.user);
-  if (found.error) return res.status(found.error[0]).json({ error: found.error[1] });
-  try {
-    const job = loadControlledResearchResults(found.job, controlledDemoOrigin); db.numbersResearchJobs[db.numbersResearchJobs.indexOf(found.job)] = job;
-    auditAndSave(db, req.user, 'numbers.research_controlled_demo_loaded', 'numbers_research_job', job.id, { resultCount: job.results.length }); res.json({ job, message: 'Controlled demo values loaded. They are not live Bing results.' });
-  } catch (error) { res.status(400).json({ error: error.message }); }
-});
-app.post('/api/mac/numbers/research/:id/prepare', requireRole('admin', 'creator'), (req, res) => {
-  const db = readStore(); const found = numbersResearchJobForUser(db, req.params.id, req.user);
-  if (found.error) return res.status(found.error[0]).json({ error: found.error[1] });
-  try {
-    const job = prepareNumbersResearchProposal(found.job); db.numbersResearchJobs[db.numbersResearchJobs.indexOf(found.job)] = job;
-    auditAndSave(db, req.user, 'numbers.research_proposal_prepared', 'numbers_research_job', job.id, { rows: job.proposal.rowCount, proposalFingerprint: job.proposal.fingerprint }); res.json({ job });
-  } catch (error) { res.status(400).json({ error: error.message }); }
-});
-app.post('/api/mac/numbers/research/:id/approve', requireRole('admin', 'creator'), async (req, res) => {
-  const db = readStore(); const found = numbersResearchJobForUser(db, req.params.id, req.user);
-  if (found.error) return res.status(found.error[0]).json({ error: found.error[1] });
-  if (req.body?.confirmed !== true) return res.status(400).json({ error: 'Review the table diff and explicitly confirm the Numbers write.' });
-  try {
-    const job = await writeApprovedNumbersResearch(found.job, writeNumbersResearchResults); db.numbersResearchJobs[db.numbersResearchJobs.indexOf(found.job)] = job;
-    auditAndSave(db, req.user, 'numbers.research_written', 'numbers_research_job', job.id, { approvedRows: job.proof.approvedRows, proposalFingerprint: job.proof.proposalFingerprint, outputTable: job.proof.output.tableName }); res.json({ job, message: `${job.proof.approvedRows} approved research rows were written to Numbers.` });
-  } catch (error) { res.status(400).json({ error: error.message }); }
-});
-app.get('/api/resume/jobs', (req, res) => res.json(listResumeJobs(readStore(), req.user)));
-app.post('/api/resume/jobs/analyze', requireRole('admin', 'creator'), resumeUpload.single('resume'), async (req, res) => {
-  try {
-    const resume = await extractResumeText(req.file); const db = readStore(); const job = createResumeJob(db, req.user.id, resume, req.body?.jobDescription);
-    auditAndSave(db, req.user, 'resume.analyzed', 'resume_job', job.id, { resumeFileName: job.input.resume.fileName, resumeHash: job.input.resume.sha256, jobDescriptionHash: job.input.jobDescriptionHash, requirements: job.summary.total });
-    res.status(201).json({ job: resumeJobResponse(job) });
-  } catch (error) { res.status(400).json({ error: error.message }); }
-});
-app.post('/api/resume/jobs/:id/export', requireRole('admin', 'creator'), async (req, res) => {
-  try {
-    const db = readStore(); const job = resumeJobForUser(db, req.user, req.params.id);
-    if (!job) return res.status(404).json({ error: 'Resume alignment job not found.' });
-    const artifact = await exportResumeReview(job, Array.isArray(req.body?.selectedSuggestionIds) ? req.body.selectedSuggestionIds : []);
-    auditAndSave(db, req.user, 'resume.exported', 'resume_job', job.id, { exportId: artifact.id, exportHash: artifact.sha256, selectedSuggestionCount: artifact.selectedSuggestionIds.length });
-    res.json({ job: resumeJobResponse(job), artifact });
-  } catch (error) { res.status(400).json({ error: `Resume review copy could not be generated: ${error.message}` }); }
-});
-app.get('/api/resume/jobs/:id/proof', (req, res) => {
-  const job = resumeJobForUser(readStore(), req.user, req.params.id);
-  if (!job) return res.status(404).json({ error: 'Resume alignment job not found.' });
-  res.attachment(`resume-alignment-proof-${job.id}.json`).type('application/json').send(JSON.stringify(resumeProof(job), null, 2));
-});
-app.get('/api/resume/jobs/:id/exports/:exportId', (req, res) => {
-  const job = resumeJobForUser(readStore(), req.user, req.params.id); const artifact = job?.exports?.find(item => item.id === req.params.exportId);
-  if (!artifact) return res.status(404).json({ error: 'Resume review copy not found.' });
-  const target = resumeExportPath(artifact);
-  if (!target || !fs.existsSync(target)) return res.status(404).json({ error: 'Resume review copy is no longer available.' });
-  res.download(target, artifact.filename);
-});
-app.delete('/api/resume/jobs/:id', requireRole('admin', 'creator'), (req, res) => {
-  const db = readStore(); const job = resumeJobForUser(db, req.user, req.params.id);
-  if (!job) return res.status(404).json({ error: 'Resume alignment job not found.' });
-  for (const artifact of job.exports || []) { const target = resumeExportPath(artifact); if (target && fs.existsSync(target)) fs.rmSync(target, { force: true }); }
-  db.resumeJobs = db.resumeJobs.filter(item => item.id !== job.id); auditAndSave(db, req.user, 'resume.deleted', 'resume_job', job.id, { exportsDeleted: job.exports?.length || 0 }); res.status(204).end();
 });
 app.get('/api/workflows', (req, res) => {
   const db = readStore(); backfillSopRuleBooks(db);

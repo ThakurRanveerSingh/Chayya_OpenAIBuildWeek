@@ -2,11 +2,11 @@
 
 ## 1. Purpose and scope
 
-Anukriti turns a repeated browser task or local document-review task into a reusable, reviewable job.
+Anukriti turns a repeated browser task into a reusable, reviewable job.
 
 **Primary user outcome:** a user checks the source evidence, reviews a transparent plan, and can safely repeat a local productivity task without repeating the manual work.
 
-**Current scope:** local browser automation with Playwright and local resume-to-job-description comparison with Word-compatible export. Direct macOS app control, scheduling, remote worker execution, live stock data, and enterprise integrations are outside the current MVP scope.
+**Current scope:** local browser automation with Playwright. Direct macOS app control, scheduling, remote worker execution, live stock data, and enterprise integrations are outside the current MVP scope.
 
 ## 2. User journey
 
@@ -17,8 +17,6 @@ Anukriti turns a repeated browser task or local document-review task into a reus
 5. The user reviews a deliberately conservative optimization and saves a runnable job.
 6. The user explicitly confirms a rerun; Anukriti runs the reviewed script and records the outcome.
 
-For resume alignment, the user selects an existing local resume and pastes a job description. The local service extracts text, shows evidenced and not-evidenced requirements, asks the user to select review notes, generates a separate `.docx` review copy, and retains proof. The original is never modified.
-
 ## 3. System context
 
 ```mermaid
@@ -28,7 +26,6 @@ flowchart LR
   API --> AUTH["Local identity and RBAC\naccount + bearer session"]
   API --> STORE["Local persistence\ndata/anukriti.json"]
   API --> ART["Protected job artefacts\nautomations/"]
-  API --> RES["Protected local resume artefacts\noutput/resume/"]
   API --> PW["Playwright recorder and runner"]
   PW --> SITE["Approved public target website"]
   API --> AUDIT["Bounded audit history\nlocal JSON"]
@@ -47,7 +44,6 @@ flowchart TB
     API["Express API"]
     Guard["Authentication, RBAC, ownership\nrate limit, response headers"]
     Engine["Workflow engine\nrecord, analyse, redact, optimize, run"]
-    Resume["Resume engine\nextract, compare, review, export, proof"]
     Files["JSON store + script artefacts"]
     Logs["Audit and request logs"]
   end
@@ -61,7 +57,6 @@ flowchart TB
   Web -->|"HTTPS / API requests"| API
   Token --> Guard
   API --> Guard --> Engine
-  Guard --> Resume
   Engine --> Files
   Guard --> Logs
   Engine --> Recorder
@@ -76,7 +71,6 @@ flowchart TB
 | Express API | API contract, validation, authentication, authorization, audit events, error responses | Request/response data; local store |
 | Auth module | Password hashing, sign-in, in-memory session lifecycle, role checks | User password hashes/salts; short-lived sessions |
 | Workflow engine | Starts codegen, reads recording, redacts sensitive inputs, derives steps, optimizes, runs code | Script files; workflow metadata |
-| Resume engine | Extracts local DOCX/text, compares transparent requirements, creates a separate Word review copy and proof | Owner-scoped local resume analysis and export files |
 | Security module | Public-target validation and secret-form detection/redaction | URL/code input only |
 | Local store | Users, jobs, histories, audit events | `data/anukriti.json` |
 | Artefact store | Raw recordings and generated Playwright scripts | `automations/*.spec.js` |
@@ -104,7 +98,6 @@ flowchart TB
 - Recognised password/token/secret/card fields are redacted before recording persistence.
 - Risky action wording is visibly flagged and every run requires explicit confirmation.
 - A run is stopped after two minutes; output and audit history are bounded.
-- Resume input is limited to 2 MB, stored only locally for the owner’s review/export, and can be explicitly deleted with generated copies.
 
 Read [the threat model](THREAT_MODEL.md) for limitations and required production controls.
 

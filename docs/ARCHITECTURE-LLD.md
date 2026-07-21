@@ -9,7 +9,6 @@
 | `server/auth.js` | Account validation, `scrypt` password hashing, in-memory bearer sessions, role checks |
 | `server/security.js` | Target URL validation, recorded target checks, recognised-secret redaction |
 | `server/workflows.js` | Playwright codegen/runner process control, step analysis, automatic SOP/Rule Book generation, safe optimization |
-| `server/resume.js` | Local DOCX/text extraction, requirement comparison, Word-compatible review-copy export, and proof |
 | `server/store.js` | Local JSON read/write and bounded audit storage |
 
 ## 2. Core data model
@@ -19,7 +18,6 @@ erDiagram
   USER ||--o{ WORKFLOW : owns
   USER ||--o{ AUDIT_EVENT : creates
   WORKFLOW ||--o{ RUN_RESULT : contains
-  USER ||--o{ RESUME_JOB : owns
 
   USER {
     string id PK
@@ -55,16 +53,6 @@ erDiagram
     datetime completedAt
     integer durationMs
     string output
-  }
-  RESUME_JOB {
-    string id PK
-    string ownerId FK
-    string status
-    json inputHashes
-    json requirements
-    json suggestions
-    json exports
-    datetime createdAt
   }
   AUDIT_EVENT {
     string id PK
@@ -154,11 +142,6 @@ All `/api` routes except `/api/health`, `/api/auth/register`, and `/api/auth/log
 | `POST /api/auth/logout` | Signed-in | Revokes current session |
 | `GET /api/auth/me` | Signed-in | Returns current user profile |
 | `GET /api/workflows` | Signed-in | Lists owner jobs; admin can see all local jobs |
-| `POST /api/resume/jobs/analyze` | Admin, creator | Extracts owner-selected `.docx`/text resume and compares it with pasted JD |
-| `POST /api/resume/jobs/{id}/export` | Admin, creator, owner/admin access | Generates separate reviewed `.docx` copy from selected notes |
-| `GET /api/resume/jobs/{id}/proof` | Owner/admin access | Downloads local input/output proof JSON |
-| `GET /api/resume/jobs/{id}/exports/{exportId}` | Owner/admin access | Downloads owner-scoped generated `.docx` |
-| `DELETE /api/resume/jobs/{id}` | Admin, creator, owner/admin access | Deletes local analysis and generated exports |
 | `POST /api/workflows` | Admin, creator | Creates owner-scoped browser job |
 | `POST /api/workflows/{id}/record` | Admin, creator, owner/admin access | Starts recorder |
 | `GET /api/workflows/{id}/recording` | Owner/admin access | Polls/readies recording |
@@ -203,8 +186,6 @@ In all non-admin cases, the workflow owner check is enforced server-side.
 | Another run in progress | `409` | Wait for the current run result |
 | Playwright fails or times out | Run saved as Failed with output | Inspect output and record/update job |
 | Target site changed | Script fails by selector/navigation | Re-record and review a new version |
-| Resume cannot be extracted | `400` with text-format guidance | Use a text-based `.docx`, `.txt`, or `.md` version |
-| Resume analysis is no longer needed | Owner deletes job | Local analysis and generated review copies are deleted |
 
 ## 8. Security processing detail
 

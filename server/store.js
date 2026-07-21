@@ -10,8 +10,6 @@ const initial = {
   users: [],
   audit: [],
   workdays: [],
-  numbersResearchJobs: [],
-  resumeJobs: [],
   backoffice: { runs: [], financeHub: [], exceptionDesk: [], queueBatches: [], jobs: [], processJobs: [] }
 };
 

@@ -4,6 +4,20 @@
 
 Chayya is a local-first workflow automation companion for people who repeat browser and desktop-adjacent work. It records a browser task once, turns the capture into a plain-English SOP and Rule Book, lets the owner review and safely optimize it, then reruns the approved job visibly or in the background. Every important decision, rule, and run is inspectable.
 
+## Technical implementation: Codex + GPT-5.6
+
+Codex with GPT-5.6 was used as a collaborative development agent to accelerate implementation, testing, debugging, and documentation. It did **not** become an opaque end-user agent or a required runtime service: the included demo runs locally without an OpenAI API key or model call.
+
+| Key decision | Codex/GPT-5.6 contribution | Judge-visible outcome |
+| --- | --- | --- |
+| Model the workflow as **record → review → optimize → confirm → run → prove** | Translated the product concept into concrete UI states, API routes, persistence, and tests. | The captured steps, raw/optimized comparison, SOP, Rule Book, generated code, and execution proof are inspectable. |
+| Replace fragile third-party demos with controlled first-party jobs | Identified live-site risks such as logins, CAPTCHAs, ads, changing layouts, and rate limits; helped create a stable demo strategy. | Five built-in jobs show the complete loop reliably with no external account or secret. |
+| Preserve user intent during optimization | Helped define and test a deliberately narrow optimization rule: only exact adjacent duplicate navigation/form-entry actions are removed. | The original capture is preserved; Chayya does not silently compress a workflow into a different task. |
+| Build explainable business automation | Helped implement the source invoices → documented rules → Excel mapping → FinanceHub/ExceptionDesk → proof pipeline. | The Back-office demo exposes decisions, exceptions, target queues, and downloadable proof. |
+| Improve quality through rapid iteration | Assisted with Playwright recorder/browser-runtime debugging, security/redaction checks, test creation, and judge-facing documentation. | `npm run check` validates unit, integration, browser, Electron-security, and production-build paths. |
+
+The project owner made the product, demo, and safety decisions; Codex accelerated execution by turning those decisions and feedback into focused, testable implementation changes. The detailed capability record is [testingnewGPTFeatures.md](../testingnewGPTFeatures.md).
+
 ## What judges should try
 
 1. **Record → review → reuse:** Create a browser job, complete it once in the visible Playwright recorder, then review the exact recorded steps, SOP, Rule Book, and generated Playwright code.
@@ -11,7 +25,6 @@ Chayya is a local-first workflow automation companion for people who repeat brow
 3. **Visible proof:** Run the saved workflow in a visible browser, confirm the run, and inspect its result and history. Background replay is available only after that saved version has passed visibly.
 4. **Stable demo jobs:** From **New browser job**, choose **Add five stable demo jobs (recommended)** for a reliable first-party demonstration with no third-party login, CAPTCHA, purchase, or live-data dependency.
 5. **Back-office demo:** Select **Back-office demo** to see a local invoice-routing workflow: source website → explainable decision → Excel mapping → FinanceHub or ExceptionDesk target → built-in analytics.
-6. **Optional macOS Numbers bridge:** On macOS, open the included Numbers workbook and use **Numbers bridge** to inspect an active table or run the template-driven research workflow. The bridge only writes user-approved values to a designated results table.
 
 ## Demo
 
@@ -69,6 +82,29 @@ To open the desktop shell, leave the development server running and use a second
 npm run desktop
 ```
 
+## Judge navigation and sample data
+
+Use this order for the quickest proof of the core value:
+
+1. **New browser job** → **Add five stable demo jobs (recommended)**.
+2. Open a demo job, run it in **Visible browser** mode, and inspect the execution proof.
+3. Record the job once, close the recorder, and inspect the exact steps, SOP, Rule Book, and generated code.
+4. Choose **Review & optimize job**; Chayya only removes exact adjacent duplicate navigation/form-entry actions and always preserves the original capture.
+5. Open **Back-office demo** to process the included ten-invoice sample: source page → rules → Excel mapping → FinanceHub/ExceptionDesk → proof.
+
+Sample data is bundled in [public/demo-websites](../public/demo-websites). No seed command, API key, external account, or real credentials are required. Runtime accounts/history are created in `data/anukriti.json`; generated scripts and evidence are written to `automations/` and `output/`.
+
+## Project file guide
+
+| Location | What to inspect |
+| --- | --- |
+| [src/main.jsx](../src/main.jsx) | Judge-visible React UI and navigation |
+| [server/workflows.js](../server/workflows.js) | Recording, redaction, SOP/Rule Book, safe optimization, and replay logic |
+| [server/backoffice.js](../server/backoffice.js) | Local invoice-routing workflow and proof generation |
+| [server/security.js](../server/security.js) | URL validation and captured-secret protections |
+| [public/demo-websites](../public/demo-websites) | Stable first-party demo pages |
+| [docs/DEMO_RUNBOOK.md](../docs/DEMO_RUNBOOK.md) | Suggested judge walkthrough |
+
 ## Testing
 
 Run the complete local verification suite and production build:
@@ -83,20 +119,17 @@ This runs serial unit tests, API integration tests, browser end-to-end tests, th
 
 Chayya is intentionally a local hackathon MVP, not an internet-facing automation service. It includes account roles, job ownership, protected script downloads, audit history, target URL checks, sensitive-value redaction, request limits, and job timeouts. It does not claim universal desktop/mobile recording or production multi-tenant security. See [docs/THREAT_MODEL.md](../docs/THREAT_MODEL.md) for the full boundary.
 
-The macOS Numbers bridge is a narrow, user-approved workflow: it does not write arbitrary cells, formulas, or chart definitions. The Resume tailor produces a separate review copy, preserves the source resume, and does not invent experience.
+## Additional GPT-5.6 and Codex notes
 
-## How GPT-5.6 and Codex were used
+GPT-5.6 and Codex were used as collaborative engineering tools throughout the project. They accelerated the move from an initial “teach an agent once, then rerun it” idea to a concrete workflow-automation architecture, scaffolding the React, Electron, Express, Playwright, and local-storage components and iterating quickly on the record → review → optimize → visible-run experience.
 
-GPT-5.6 and Codex were used as collaborative engineering tools throughout the project. They helped turn the initial “teach an agent once, then rerun it” idea into a concrete workflow-automation architecture; scaffold the React, Electron, Express, Playwright, and local-storage components; and iterate on the record → review → optimize → visible-run experience.
-
-Specific implementation support included generating and refining the Playwright recording and replay paths, designing the transparent SOP/Rule Book and optimization rules, implementing local back-office and Numbers-demo adapters, writing safety checks/redaction tests, troubleshooting the Playwright browser-runtime setup, and producing the demo and architecture documentation. Project decisions, scope boundaries, and final review remained human-directed.
+Specific implementation support included generating and refining the Playwright recording and replay paths, designing the transparent SOP/Rule Book and optimization rules, implementing local back-office adapters, writing safety checks/redaction tests, troubleshooting the Playwright browser-runtime setup, and producing the demo and architecture documentation. Codex reduced iteration time by turning feedback into small, testable changes and helping diagnose failures before demo rehearsal. Project decisions, scope boundaries, and final review remained human-directed.
 
 ## Further documentation
 
 - [Architecture HLD](../docs/ARCHITECTURE-HLD.md)
 - [Architecture LLD](../docs/ARCHITECTURE-LLD.md)
 - [Back-office demo](../docs/BACKOFFICE_DEMO.md)
-- [Numbers workflow](../docs/NUMBERS_DESKTOP_WORKFLOW.md)
 - [Release checklist](../docs/RELEASE_CHECKLIST.md)
 - [GPT-5.6 capability record](../testingnewGPTFeatures.md)
 

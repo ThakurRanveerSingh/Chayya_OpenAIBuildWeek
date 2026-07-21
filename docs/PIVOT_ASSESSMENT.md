@@ -12,20 +12,6 @@ The reported single-step browser jobs were a real defect, not user error. The pr
 - The default optimizer only removes identical consecutive navigation/form-entry actions. It no longer silently converts a Bing journey into a one-step template.
 - Popup/new-tab actions are included in the capture review.
 
-## New local-productivity lane
-
-```text
-Existing resume (.docx/.txt/.md) + job description
-                 ↓
-   local text extraction and requirement comparison
-                 ↓
-  evidenced / not-evidenced matrix + human selection
-                 ↓
-   separate Word-compatible review copy + proof JSON
-```
-
-The original resume is not modified. The generated DOCX contains selected review notes and the original content, so the user stays responsible for all factual changes. Deleting the local analysis removes its generated exports.
-
 ## Why direct macOS Word control is deferred
 
 The Electron shell currently has no trusted IPC or macOS permission flow. AppleScript/Word control would require Microsoft Word installed, macOS Automation approval, narrow path/action allowlists, audit events, and a separate test plan. It is not represented as working.
@@ -39,6 +25,5 @@ Before implementation, the app needs a vetted, terms-compliant price-history pro
 ## Delivery order
 
 1. **Complete:** recorder reliability repair and truthful raw/optimized review.
-2. **Complete:** local Resume Alignment proof and DOCX export.
-3. **Gated:** live stock fundamentals/technicals dashboard after approved source validation.
-4. **Later:** explicit opt-in macOS Word adapter with permission, audit, and rollback controls.
+2. **Gated:** live stock fundamentals/technicals dashboard after approved source validation.
+3. **Later:** explicit opt-in macOS Word adapter with permission, audit, and rollback controls.

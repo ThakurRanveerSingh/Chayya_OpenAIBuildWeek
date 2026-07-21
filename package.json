@@ -17,12 +17,9 @@
     "install:browser": "playwright install chromium"
   },
   "dependencies": {
-    "docx": "^9.7.1",
     "dotenv": "^16.6.1",
     "exceljs": "^4.4.0",
     "express": "^5.1.0",
-    "mammoth": "^1.12.0",
-    "multer": "^2.2.0",
     "playwright": "^1.55.0"
   },
   "devDependencies": {

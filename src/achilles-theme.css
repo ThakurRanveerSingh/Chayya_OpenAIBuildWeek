@@ -68,15 +68,15 @@ nav i { background: #f2e0ba; color: var(--bronze-dark); }
 nav small { color: #6d665c; }
 
 .eyebrow, .back { color: var(--bronze-dark); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .67rem; font-weight: 800; letter-spacing: .14em; }
-.create h1, .libraryTitle h1, .workflowHead h1, .backOfficeHero h1, .resumeHero h1, .numbersResearchHero h1 {
+.create h1, .libraryTitle h1, .workflowHead h1, .backOfficeHero h1, .numbersResearchHero h1 {
   color: var(--ink-deep);
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 700;
   letter-spacing: -.06em;
 }
-.create p, .libraryTitle p, .workflowHead p, .backOfficeHero p, .resumeHero p, .numbersResearchHero p { color: #596474; }
+.create p, .libraryTitle p, .workflowHead p, .backOfficeHero p, .numbersResearchHero p { color: #596474; }
 
-.create form, .flow article, .stepsPanel, .optimization, .recordingReliability, .resumeForm, .resumeMatrix, .resumeSuggestions, .resumeExport, .researchRows, .numbersProposal, .numbersProposalAction, .targetGrid article, .decisionPanel {
+.create form, .flow article, .stepsPanel, .optimization, .recordingReliability, .researchRows, .numbersProposal, .numbersProposalAction, .targetGrid article, .decisionPanel {
   background: rgba(255, 250, 240, .86);
   border-color: rgba(116, 53, 22, .16);
   box-shadow: 0 12px 28px rgba(54, 38, 18, .055);
@@ -92,12 +92,12 @@ nav small { color: #6d665c; }
   right: 16px;
   top: 0;
 }
-.create input, .create textarea, .resumeForm input, .resumeForm textarea, .researchRows input, input, textarea {
+.create input, .create textarea, .researchRows input, input, textarea {
   background: rgba(255, 253, 247, .9);
   border-color: rgba(116, 53, 22, .26);
   color: var(--ink-deep);
 }
-.create input:focus, .create textarea:focus, .resumeForm input:focus, .resumeForm textarea:focus, .researchRows input:focus { border-color: var(--bronze); box-shadow: 0 0 0 3px rgba(215, 164, 75, .18); }
+.create input:focus, .create textarea:focus, .researchRows input:focus { border-color: var(--bronze); box-shadow: 0 0 0 3px rgba(215, 164, 75, .18); }
 .adapterNote, .empty, .numbersResearchEmpty { background: #efe4cd; color: #604d35; }
 
 .primary, .authSubmit {
@@ -108,7 +108,7 @@ nav small { color: #6d665c; }
   font-weight: 800;
 }
 .primary:not(:disabled):hover, .authSubmit:not(:disabled):hover { background: linear-gradient(135deg, #cd7a3c, #93441f) !important; box-shadow: 0 .18rem 0 #5f270f, 0 .65rem 1.4rem rgba(88, 39, 17, .16) !important; transform: translateY(.17rem); }
-.flow button, .code button, .feedback button, .resumeActions button, .analyticsPanel button { background: #eee1c9; color: var(--bronze-dark); }
+.flow button, .code button, .feedback button, .analyticsPanel button { background: #eee1c9; color: var(--bronze-dark); }
 .linkButton { color: var(--bronze-dark) !important; }
 
 .workflowHead { border-color: rgba(116, 53, 22, .17); }
@@ -132,7 +132,7 @@ nav small { color: #6d665c; }
   border-color: rgba(116, 53, 22, .24);
   box-shadow: 0 14px 32px rgba(54, 38, 18, .07);
 }
-.jobJourney h2, .matchdayCoach h2, .stepsPanel h2, .optimization h2, .recordingReliability h2, .backOfficeFlow h2, .analyticsPanel h2, .decisionPanel h2, .targetGrid h2, .resumeForm h2, .resumeMatrix h2, .resumeSuggestions h2, .resumeExport h2, .researchRows h2, .numbersProposal h2, .numbersProposalAction h2 { color: var(--ink-deep); font-family: Georgia, "Times New Roman", serif; }
+.jobJourney h2, .matchdayCoach h2, .stepsPanel h2, .optimization h2, .recordingReliability h2, .backOfficeFlow h2, .analyticsPanel h2, .decisionPanel h2, .targetGrid h2, .researchRows h2, .numbersProposal h2, .numbersProposalAction h2 { color: var(--ink-deep); font-family: Georgia, "Times New Roman", serif; }
 .jobJourney li { background: rgba(255, 252, 246, .86); border-color: rgba(116, 53, 22, .14); color: #66706d; }
 .jobJourney li.done { background: #e6f0e4; border-color: #a7c4a5; color: #2f6545; }
 .jobJourney li.blocked { background: #f9eadf; border-color: #e5b79a; color: #9d4429; }
@@ -161,18 +161,17 @@ nav small { color: #6d665c; }
 .waitCards button, .liveWaitActions button { background: #f8ecd4; color: var(--bronze-dark); }
 .liveCoach { background: linear-gradient(125deg, #18213d, #285867 66%, #9c5524 170%); }
 
-.backOfficeHero, .resumeHero { border-color: rgba(116, 53, 22, .17); }
+.backOfficeHero { border-color: rgba(116, 53, 22, .17); }
 .backOfficeHero aside { background: linear-gradient(145deg, #142d43, #265761); border: 1px solid rgba(215, 164, 75, .38); }
-.resumeHero aside { background: linear-gradient(145deg, #20304e, #4c5d76); border: 1px solid rgba(215, 164, 75, .34); }
 .backOfficeFlow article, .analyticsPanel, .decisionPanel, .targetGrid article { border-color: rgba(116, 53, 22, .16); }
 .analyticsPanel { background: linear-gradient(135deg, #edf2e9, #f7eedc); }
 .metricGrid div { background: rgba(255, 251, 244, .9); }
 .metricGrid b { color: var(--bronze-dark); }
 .throughputBars b { background: var(--laurel); }
 .throughputBars .exceptionBar { background: var(--bronze); }
-.decision.Passed, .resumeStatus.Evidenced { background: #e1efdc; color: #2c6543; }
-.decision.Exception, .resumeStatus.Notevidenced { background: #faeadb; color: #8b4823; }
-.sourcePreview span, .suggestionList label, .resumeIntent>div { background: #f7efdf; }
+.decision.Passed { background: #e1efdc; color: #2c6543; }
+.decision.Exception { background: #faeadb; color: #8b4823; }
+.sourcePreview span { background: #f7efdf; }
 
 .numbersResearchHero { background: linear-gradient(135deg, #e9f0e8, #fbefd8); border-color: rgba(116, 53, 22, .20); box-shadow: 0 14px 30px rgba(54, 38, 18, .06); }
 .numbersResearchHero aside { background: linear-gradient(145deg, #142d43, #265761); border: 1px solid rgba(215, 164, 75, .38); }
@@ -226,7 +225,7 @@ nav small { color: #6d665c; }
 @media (max-width: 600px) {
   nav .brand { font-size: 1.15rem; }
   nav .brand::before { height: 1.75rem; width: 1.75rem; }
-  .create h1, .backOfficeHero h1, .resumeHero h1, .numbersResearchHero h1 { font-size: clamp(2.8rem, 14vw, 4.2rem); }
+  .create h1, .backOfficeHero h1, .numbersResearchHero h1 { font-size: clamp(2.8rem, 14vw, 4.2rem); }
   .jobJourney li { min-height: 7.6rem; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }

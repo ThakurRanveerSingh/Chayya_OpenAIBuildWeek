@@ -22,7 +22,7 @@ It is a local SVG, so it adds no remote asset, cookie, runtime API key, or user-
 1. **Immersion must not hide control.** The main actions retain clear, literal labels such as “Create browser job,” “Visible browser,” “Background,” and “Download proof report.”
 2. **Progress is earned from evidence.** Voyage checkpoints only advance after actual saved capture, repeatability checks, a visible rehearsal, and run history. They are not points, streaks, or time-on-screen rewards.
 3. **Make safety feel first-class.** Bronze primary controls contrast with parchment surfaces; blocked and risky states remain explicit, readable, and distinct from a success state.
-4. **One visual language across every route.** Browser recording, Numbers research, resume tailoring, back-office proof, run results, and library cards share navy, parchment, bronze, laurel, and gold tokens.
+4. **One visual language across every route.** Browser recording, back-office proof, run results, and library cards share navy, parchment, bronze, laurel, and gold tokens.
 5. **Keep it accessible.** Keyboard focus has a high-contrast gold outline, hover lift is reduced when the operating system requests reduced motion, and the logo is decorative where visible text already names Anukriti.
 
 ## Gamified, but trustworthy
@@ -45,4 +45,4 @@ The theme never suggests that a job worked when it did not. A failed job, unsafe
 
 ## Verification
 
-The browser end-to-end test checks the new sign-in title, first-voyage labels, Aegis Guide wait controls, pause save notice, and voyage progress language while continuing through the full browser job, back-office proof, Numbers, and resume journeys.
+The browser end-to-end test checks the new sign-in title, first-voyage labels, Aegis Guide wait controls, pause save notice, and voyage progress language while continuing through the full browser job and back-office proof journeys.
