@@ -8,10 +8,10 @@ Chayya is a local-first workflow automation companion for people who repeat brow
 
 Chayya’s primary Build Week focus is AI for education through transparent, reusable learning workflows—not answer generation or automated grading. The stable demo set includes two end-to-end education workflows:
 
-1. **Student Study Brief:** topic + learning goal → Find → Explain → Check → teacher/peer review.
-2. **Teacher Lesson-Plan Brief:** grade level + lesson topic + objective → trusted-source and activity preparation → teacher review before classroom use.
+1. **Student Study Brief:** topic + learning goal + prior knowledge + source preference → Find → Explain in the learner’s own words → Check one open question with a teacher/peer. It gives a student a structured way to start, connect new material to what they know, and ask for targeted help rather than copy a generated answer.
+2. **Teacher Lesson-Plan Brief:** grade level + lesson topic + objective + duration + learner support → trusted-source selection → activity preparation → learner-centred check → teacher review before classroom use. It gives a teacher a reusable planning starting point while preserving their decisions about materials, accommodations, assessment, and delivery.
 
-Both workflows preserve the learner/teacher’s declared goal, exact browser actions, review rules, SOP/Rule Book, and replay proof.
+Both workflows preserve the learner/teacher’s declared goal, exact browser actions, review rules, SOP/Rule Book, and replay proof. The visible demo page shows the study or lesson brief; Chayya stores the exact capture, generated Playwright script, and SOP/Rule Book in `automations/`, and stores job/run history in the runtime-only `data/anukriti.json`.
 
 ## Technical implementation: Codex + GPT-5.6
 
@@ -38,7 +38,7 @@ The project owner made the product, demo, and safety decisions; Codex accelerate
 ## Demo
 
 - Live app: local-first MVP; run it locally using the instructions below.
-- Demo video: not included in this repository.
+- Demo video: [Watch the public YouTube demo](https://youtu.be/kW2c6ehcV4w)
 - Repository: <https://github.com/ThakurRanveerSingh/Chayya_OpenAIBuildWeek>
 - License: [MIT](../LICENSE)
 - Judge walkthrough: [docs/DEMO_RUNBOOK.md](../docs/DEMO_RUNBOOK.md)
@@ -102,6 +102,7 @@ Use this order for the quickest proof of the core value:
 3. Record the job once, close the recorder, and inspect the exact steps, SOP, Rule Book, and generated code.
 4. Choose **Review & optimize job**; Chayya only removes exact adjacent duplicate navigation/form-entry actions and always preserves the original capture.
 5. Open **Back-office demo** to process the included ten-invoice sample: source page → rules → Excel mapping → FinanceHub/ExceptionDesk → proof.
+6. Open **Demo: Study brief builder** or **Teacher: lesson-plan research brief**. Run it visibly and then inspect its intent card, SOP/Rule Book, and generated script. The reusable artifacts are in `automations/`; the page itself displays the human-reviewable study or lesson brief.
 
 Sample data is bundled in [public/demo-websites](../public/demo-websites). No seed command, API key, external account, or real credentials are required. Runtime accounts/history are created in `data/anukriti.json`; generated scripts and evidence are written to `automations/` and `output/`.
 
