@@ -4,6 +4,10 @@
 
 Chayya records a browser workflow with Playwright, automatically creates a detailed SOP and Rule Book from every completed capture, presents the captured steps in plain English, saves a transparent optimized version, and lets the job owner run it again with explicit confirmation.
 
+
+Youtube Link: https://youtu.be/kW2c6ehcV4w
+Feedback session id -- 019f6395-7573-7091-a497-76c5b97f51c6`
+
 Repository: <https://github.com/ThakurRanveerSingh/Chayya_OpenAIBuildWeek> · License: [MIT](LICENSE) · Judge-facing technical implementation: [submission/TECHNICAL_IMPLEMENTATION.md](submission/TECHNICAL_IMPLEMENTATION.md)
 
 ## Education workflows
