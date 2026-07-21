@@ -8,20 +8,6 @@ Repository: <https://github.com/ThakurRanveerSingh/Chayya_OpenAIBuildWeek> · [P
 
 Feedback session id -- 019f6395-7573-7091-a497-76c5b97f51c6
 
-## Education workflows
-
-Chayya primarily demonstrates AI-supported **learning process design**, not answer generation or automated grading.
-
-- **Student Study Brief:** A student declares a topic, learning goal, what they already know, and a trusted-source preference. Chayya captures a reusable **Find → Explain → Check** routine: begin with the selected source, connect it to prior knowledge, explain it in the learner’s own words, then bring one open question to a teacher or peer. The visible page produces a short study brief, source trail, and reflection prompt. This helps students start productively, practise retrieval and explanation instead of copying an answer, and identify a specific point where human help is useful.
-- **Teacher Lesson-Plan Brief:** A teacher declares a grade level, lesson topic, learning objective, lesson length, and learner-support approach. Chayya captures a reusable preparation routine: select trusted material, plan an activity suited to the support choice, draft a learner-centred check, and review the brief before classroom use. The visible page produces a lesson brief, source trail, and review checklist. This helps teachers turn a repeated planning pattern into a consistent starting point while retaining professional judgement over sources, accommodations, assessment, and delivery.
-
-After the visible demo is added, Chayya saves the reusable workflow artifacts locally:
-
-- `automations/` — the exact capture (`*-recording.spec.js`), reusable Playwright script (`*-v*.spec.js`), and SOP/Rule Book (`*.sop.md`), including review rules and safeguards.
-- `data/anukriti.json` — local job state, the declared intent, run history, and audit events; it is created at runtime and is not committed.
-- On the demo page — the learner-facing **study brief** or teacher-facing **lesson brief**. This is an in-browser prompt and checklist, not an automatically generated assignment, grade, or lesson delivered to students.
-
-Both workflows retain exact captured actions, transparent review rules, and proof of a visible replay. They are designed to increase learner agency and teacher consistency—not to replace instruction or make high-stakes educational decisions.
 
 ## Built with Codex + GPT-5.6
 
@@ -41,11 +27,25 @@ Human direction remained central: the project owner chose the scope, safety boun
 
 The complete high-level and low-level design decisions, including the intent-to-implementation path and concrete Codex/GPT-5.6 acceleration points, are in [submission/TECHNICAL_IMPLEMENTATION.md](submission/TECHNICAL_IMPLEMENTATION.md).
 
+## Education workflows
+
+Chayya primarily demonstrates AI-supported **learning process design**, not answer generation or automated grading.
+
+- **Student Study Brief:** A student declares a topic, learning goal, what they already know, and a trusted-source preference. Chayya captures a reusable **Find → Explain → Check** routine: begin with the selected source, connect it to prior knowledge, explain it in the learner’s own words, then bring one open question to a teacher or peer. The visible page produces a short study brief, source trail, and reflection prompt. This helps students start productively, practise retrieval and explanation instead of copying an answer, and identify a specific point where human help is useful.
+- **Teacher Lesson-Plan Brief:** A teacher declares a grade level, lesson topic, learning objective, lesson length, and learner-support approach. Chayya captures a reusable preparation routine: select trusted material, plan an activity suited to the support choice, draft a learner-centred check, and review the brief before classroom use. The visible page produces a lesson brief, source trail, and review checklist. This helps teachers turn a repeated planning pattern into a consistent starting point while retaining professional judgement over sources, accommodations, assessment, and delivery.
+
+After the visible demo is added, Chayya saves the reusable workflow artifacts locally:
+
+- `automations/` — the exact capture (`*-recording.spec.js`), reusable Playwright script (`*-v*.spec.js`), and SOP/Rule Book (`*.sop.md`), including review rules and safeguards.
+- `data/anukriti.json` — local job state, the declared intent, run history, and audit events; it is created at runtime and is not committed.
+- On the demo page — the learner-facing **study brief** or teacher-facing **lesson brief**. This is an in-browser prompt and checklist, not an automatically generated assignment, grade, or lesson delivered to students.
+
+Both workflows retain exact captured actions, transparent review rules, and proof of a visible replay. They are designed to increase learner agency and teacher consistency—not to replace instruction or make high-stakes educational decisions.
+
 
 ## Run locally
 
 ```bash
-cd "/Users/ranveersinghthakur/Documents/Anukriti 2"
 npm install
 npm run install:browser
 npm run dev
