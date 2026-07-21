@@ -1,0 +1,22 @@
+.noteCodeUpdate {
+  align-items: center;
+  background: #fff8df;
+  border: 1px solid #e9cc79;
+  border-radius: 9px;
+  color: #57420d;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: .85rem;
+}
+
+.noteCodeUpdate div { display: grid; gap: .22rem; }
+.noteCodeUpdate b { font-size: .84rem; }
+.noteCodeUpdate span { font-size: .77rem; line-height: 1.45; }
+.noteCodeUpdate .primary { flex: 0 0 auto; font-size: .78rem; white-space: nowrap; }
+
+@media (max-width: 600px) {
+  .noteCodeUpdate { align-items: stretch; flex-direction: column; }
+  .noteCodeUpdate .primary { width: 100%; }
+}

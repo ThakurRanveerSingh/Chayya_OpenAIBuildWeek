@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ACME Invoice Portal — Demo Source</title>
+    <style>
+      body{font-family:Arial,sans-serif;max-width:1050px;margin:48px auto;padding:0 24px;color:#16231a;background:#f7faf6}header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px}.tag{display:inline-block;background:#def0df;color:#246238;padding:6px 9px;border-radius:5px;font-size:12px;font-weight:bold;letter-spacing:.06em}h1{margin:10px 0 6px}p{color:#536257;line-height:1.5}table{border-collapse:collapse;background:#fff;width:100%;box-shadow:0 8px 28px #1c35200d}th,td{padding:14px;text-align:left;border-bottom:1px solid #e2e9e1}th{background:#1e6e3d;color:#fff;font-size:13px}td.amount{text-align:right;font-variant-numeric:tabular-nums}.note{margin-top:22px;background:#fff4d8;color:#6d4b18;padding:13px 15px;border-radius:8px;font-size:14px}
+    </style>
+  </head>
+  <body>
+    <header>
+      <div><span class="tag">WEBSITE 1 · STATIC DEMO SOURCE</span><h1>ACME Invoice Portal</h1><p>Invoices waiting for the back-office automation queue.</p></div>
+      <strong>10 pending</strong>
+    </header>
+    <table aria-label="Pending invoices">
+      <thead><tr><th>Invoice</th><th>Supplier</th><th>PO number</th><th>Invoice date</th><th>Amount</th></tr></thead>
+      <tbody>
+        <tr><td>ACME-1001</td><td>Northwind Office Supplies</td><td>PO-1001</td><td>2026-07-10</td><td class="amount">$1,250.00</td></tr>
+        <tr><td>ACME-1002</td><td>Tailspin Logistics</td><td>PO-2001</td><td>2026-07-11</td><td class="amount">$1,850.00</td></tr>
+        <tr><td>ACME-1003</td><td>Unknown Supplies Co.</td><td>PO-3001</td><td>2026-07-11</td><td class="amount">$750.00</td></tr>
+        <tr><td>ACME-1004</td><td>Fabrikam Hardware</td><td>PO-1003</td><td>2026-07-12</td><td class="amount">$6,500.00</td></tr>
+        <tr><td>ACME-1005</td><td>Northwind Office Supplies</td><td>—</td><td>2026-07-12</td><td class="amount">$640.00</td></tr>
+        <tr><td>ACME-1006</td><td>Northwind Office Supplies</td><td>PO-1001</td><td>2026-07-13</td><td class="amount">$980.00</td></tr>
+        <tr><td>ACME-1007</td><td>Tailspin Logistics</td><td>PO-2001</td><td>2026-07-13</td><td class="amount">$2,450.00</td></tr>
+        <tr><td>ACME-1008</td><td>Fabrikam Hardware</td><td>PO-1003</td><td>2026-07-14</td><td class="amount">$4,900.00</td></tr>
+        <tr><td>ACME-1009</td><td>Unknown Supplies Co.</td><td>PO-3002</td><td>2026-07-14</td><td class="amount">$1,200.00</td></tr>
+        <tr><td>ACME-1010</td><td>Tailspin Logistics</td><td>—</td><td>2026-07-14</td><td class="amount">$480.00</td></tr>
+      </tbody>
+    </table>
+    <div class="note">This is bundled demo data only. The Anukriti source adapter reads the structured payload below, so a live UiPath/ACME adapter can replace it without changing the validation or routing logic.</div>
+    <script id="anukriti-source-invoices" type="application/json">[
+      {"invoiceId":"ACME-1001","supplier":"Northwind Office Supplies","poNumber":"PO-1001","invoiceDate":"2026-07-10","amount":1250},
+      {"invoiceId":"ACME-1002","supplier":"Tailspin Logistics","poNumber":"PO-2001","invoiceDate":"2026-07-11","amount":1850},
+      {"invoiceId":"ACME-1003","supplier":"Unknown Supplies Co.","poNumber":"PO-3001","invoiceDate":"2026-07-11","amount":750},
+      {"invoiceId":"ACME-1004","supplier":"Fabrikam Hardware","poNumber":"PO-1003","invoiceDate":"2026-07-12","amount":6500},
+      {"invoiceId":"ACME-1005","supplier":"Northwind Office Supplies","poNumber":"","invoiceDate":"2026-07-12","amount":640},
+      {"invoiceId":"ACME-1006","supplier":"Northwind Office Supplies","poNumber":"PO-1001","invoiceDate":"2026-07-13","amount":980},
+      {"invoiceId":"ACME-1007","supplier":"Tailspin Logistics","poNumber":"PO-2001","invoiceDate":"2026-07-13","amount":2450},
+      {"invoiceId":"ACME-1008","supplier":"Fabrikam Hardware","poNumber":"PO-1003","invoiceDate":"2026-07-14","amount":4900},
+      {"invoiceId":"ACME-1009","supplier":"Unknown Supplies Co.","poNumber":"PO-3002","invoiceDate":"2026-07-14","amount":1200},
+      {"invoiceId":"ACME-1010","supplier":"Tailspin Logistics","poNumber":"","invoiceDate":"2026-07-14","amount":480}
+    ]</script>
+  </body>
+</html>

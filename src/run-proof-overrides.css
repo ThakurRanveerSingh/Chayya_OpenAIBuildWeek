@@ -1,0 +1,5 @@
+.executionProof .runStatusBadge { color: #fff4dc; display: block; font: 700 10px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .04em; }
+.executionProof .runStatusBadge.failed { color: #ffe0c4; }
+.executionProof .runIssue b { color: #fff8ea; font: 700 13px/1.45 Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: normal; }
+.executionProof .runIssue small { font-weight: 400; }
+.executionProof .technicalDetails pre { color: #f0f5f4; }

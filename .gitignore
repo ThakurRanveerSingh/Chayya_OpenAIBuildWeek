@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+infra/.env.hackathon
+data/*.json
+data/backoffice/
+output/*.xlsx
+automations/*.spec.js
+playwright-report/
+test-results/

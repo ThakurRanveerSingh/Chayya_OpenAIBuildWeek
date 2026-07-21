@@ -1,0 +1,115 @@
+/* Football-tournament energy without borrowing any tournament logos or artwork. */
+.authStadium {
+  --stadium-navy: #061427;
+  --stadium-ink: #0b1a30;
+  --stadium-grass: #08774d;
+  --stadium-mint: #68f0b3;
+  --stadium-gold: #ffc94a;
+  --stadium-cream: #fffdf5;
+  align-items: stretch;
+  background:
+    radial-gradient(circle at 46% 10%, rgba(104, 240, 179, .15), transparent 28rem),
+    linear-gradient(135deg, #05172b 0%, #073e42 50%, #092a37 100%);
+  box-sizing: border-box;
+  color: var(--stadium-cream);
+  display: grid;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: clamp(1rem, 3.6vw, 3rem);
+  position: relative;
+}
+
+.authStadium::before,
+.authStadium::after {
+  border-radius: 50%;
+  content: '';
+  pointer-events: none;
+  position: absolute;
+}
+
+.authStadium::before {
+  background: repeating-radial-gradient(ellipse at center, transparent 0 2.2rem, rgba(255, 255, 255, .028) 2.3rem 2.5rem);
+  height: 58rem;
+  left: -21rem;
+  top: -31rem;
+  width: 58rem;
+}
+
+.authStadium::after {
+  border: 1px solid rgba(255, 255, 255, .12);
+  height: 50rem;
+  right: -31rem;
+  top: 22%;
+  width: 50rem;
+}
+
+.stadiumGlow { border-radius: 50%; filter: blur(2px); pointer-events: none; position: absolute; }
+.stadiumGlowOne { background: rgba(255, 201, 74, .25); box-shadow: 0 0 7rem 3rem rgba(255, 201, 74, .12); height: 1.5rem; left: 16%; top: 3%; width: 1.5rem; }
+.stadiumGlowTwo { background: rgba(104, 240, 179, .2); bottom: 11%; box-shadow: 0 0 9rem 3rem rgba(104, 240, 179, .12); height: 1rem; right: 11%; width: 1rem; }
+.pitchLines { border: 1px solid rgba(203, 255, 225, .11); border-radius: 50% 50% 0 0; bottom: -33rem; height: 58rem; left: 4%; position: absolute; transform: rotate(-10deg); width: 92%; }
+
+.authFrame {
+  align-items: center;
+  display: grid;
+  gap: clamp(2.5rem, 8vw, 8rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(22rem, .75fr);
+  margin: auto;
+  max-width: 76rem;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.authWelcome { max-width: 42rem; padding: 1rem 0; }
+.authWordmark { align-items: center; display: inline-flex; font-family: 'DM Mono', monospace; font-size: .85rem; font-weight: 700; gap: .55rem; letter-spacing: .1em; text-transform: uppercase; }
+.authMark { align-items: center; background: var(--stadium-gold); border-radius: 50%; box-shadow: 0 .45rem 1.2rem rgba(0, 0, 0, .26); color: var(--stadium-navy); display: inline-flex; font-size: 1rem; height: 2rem; justify-content: center; letter-spacing: 0; width: 2rem; }
+.authKicker { color: var(--stadium-mint); font-family: 'DM Mono', monospace; font-size: .73rem; font-weight: 700; letter-spacing: .13em; margin: clamp(3rem, 8vh, 5.5rem) 0 1rem; text-transform: uppercase; }
+.authWelcome h1 { color: var(--stadium-cream); font-family: 'Fraunces', Georgia, serif; font-size: clamp(3.1rem, 6.2vw, 5.35rem); font-weight: 700; letter-spacing: -.065em; line-height: .94; margin: 0; max-width: 11ch; text-wrap: balance; }
+.authLead { color: rgba(255, 253, 245, .82); font-size: clamp(1rem, 1.6vw, 1.13rem); line-height: 1.65; margin: 1.65rem 0 1.8rem; max-width: 36rem; }
+
+.authScoreboard { background: rgba(3, 20, 37, .54); border: 1px solid rgba(211, 255, 230, .24); border-radius: .85rem; box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, .16); max-width: 33rem; overflow: hidden; }
+.scoreboardHeader { align-items: center; background: rgba(104, 240, 179, .1); border-bottom: 1px solid rgba(211, 255, 230, .16); display: flex; font-family: 'DM Mono', monospace; font-size: .7rem; font-weight: 700; justify-content: space-between; letter-spacing: .12em; padding: .65rem .85rem; }
+.scoreboardHeader b { color: var(--stadium-gold); font-size: .85rem; }
+.authScoreboard ol { counter-reset: none; display: grid; gap: .8rem; list-style: none; margin: 0; padding: 1rem .85rem; }
+.authScoreboard li { align-items: center; display: flex; gap: .75rem; }
+.authScoreboard li > span { align-items: center; background: var(--stadium-grass); border: 1px solid rgba(104, 240, 179, .46); border-radius: 50%; color: var(--stadium-mint); display: inline-flex; flex: 0 0 auto; font-family: 'DM Mono', monospace; font-size: .65rem; font-weight: 700; height: 1.75rem; justify-content: center; width: 1.75rem; }
+.authScoreboard b, .authScoreboard small { display: block; }
+.authScoreboard b { color: var(--stadium-cream); font-size: .9rem; }
+.authScoreboard small { color: rgba(255, 253, 245, .62); font-size: .78rem; margin-top: .12rem; }
+.authTrust { align-items: flex-start; color: rgba(255, 253, 245, .67); display: flex; font-size: .74rem; gap: .5rem; line-height: 1.5; margin: 1.2rem 0 0; max-width: 34rem; }
+.authTrust span { color: var(--stadium-mint); font-weight: 800; }
+
+.authCard { background: var(--stadium-cream); border: 1px solid rgba(255, 255, 255, .7); border-radius: 1.1rem; box-shadow: 0 1.6rem 4.5rem rgba(0, 0, 0, .32), .6rem .6rem 0 rgba(255, 201, 74, .98); color: var(--stadium-ink); padding: clamp(1.35rem, 3vw, 2.25rem); }
+.authCardTop { align-items: center; border-bottom: 1px solid #dce5dd; color: #46605b; display: flex; font-family: 'DM Mono', monospace; font-size: .62rem; font-weight: 700; gap: .42rem; justify-content: flex-start; letter-spacing: .09em; padding-bottom: 1rem; }
+.authCardTop span:last-child { color: #08774d; margin-left: auto; }
+.authStatusDot { background: #28c985; border-radius: 50%; box-shadow: 0 0 0 .22rem rgba(40, 201, 133, .15); height: .4rem; width: .4rem; }
+.authCard .eyebrow { color: #08774d; font-family: 'DM Mono', monospace; font-size: .68rem; font-weight: 700; letter-spacing: .12em; margin: 1.7rem 0 .65rem; }
+.authCard h2 { font-family: 'Fraunces', Georgia, serif; font-size: clamp(1.8rem, 3vw, 2.35rem); letter-spacing: -.045em; line-height: 1; margin: 0; }
+.authCard > p:not(.eyebrow):not(.authCardFoot) { color: #52635e; font-size: .9rem; line-height: 1.55; margin: .8rem 0 1.35rem; }
+.authCard form { display: grid; gap: .9rem; }
+.authCard label { color: #263a34; display: grid; font-size: .8rem; font-weight: 700; gap: .38rem; }
+.authCard input { background: #f7f9f4; border: 1px solid #c8d3c9; border-radius: .5rem; box-sizing: border-box; color: #10221d; font: inherit; min-height: 2.8rem; padding: .7rem .8rem; width: 100%; }
+.authCard input::placeholder { color: #85908a; }
+.authCard input:focus { border-color: #08774d; box-shadow: 0 0 0 .22rem rgba(8, 119, 77, .14); outline: none; }
+.authSubmit { background: #08774d !important; border: 1px solid #08774d !important; box-shadow: 0 .4rem 0 #055337; color: #fffdf5 !important; font-weight: 700; margin-top: .35rem; min-height: 2.85rem; transform: translateY(0); transition: box-shadow .15s ease, transform .15s ease, background .15s ease; }
+.authSubmit:hover:not(:disabled) { background: #066741 !important; box-shadow: 0 .25rem 0 #055337; transform: translateY(.15rem); }
+.authSubmit:disabled, .authSwitch:disabled { cursor: wait; opacity: .65; }
+.authSwitch { color: #075c40 !important; font-size: .78rem; justify-self: start; padding: .25rem 0 !important; }
+.authError { background: #fff0ed; border: 1px solid #efaa9b; border-radius: .5rem; color: #9b2617; font-size: .8rem; line-height: 1.4; padding: .7rem .8rem; }
+.authCardFoot { border-top: 1px solid #dce5dd; color: #6c7a73; font-family: 'DM Mono', monospace; font-size: .63rem; letter-spacing: .035em; margin: 1.4rem 0 0; padding-top: 1rem; }
+.authStadium :focus-visible { outline: 3px solid var(--stadium-gold); outline-offset: 3px; }
+
+@media (max-width: 760px) {
+  .authStadium { padding: 1.25rem; }
+  .authFrame { gap: 2rem; grid-template-columns: 1fr; max-width: 34rem; }
+  .authKicker { margin-top: 2.5rem; }
+  .authWelcome h1 { font-size: clamp(2.9rem, 12vw, 4rem); }
+  .authScoreboard { max-width: none; }
+  .authCard { box-shadow: .42rem .42rem 0 var(--stadium-gold), 0 1.6rem 3rem rgba(0, 0, 0, .3); }
+}
+
+@media (max-width: 390px) {
+  .authStadium { padding: 1rem; }
+  .authScoreboard small { font-size: .72rem; }
+  .authCard { padding: 1.2rem; }
+}

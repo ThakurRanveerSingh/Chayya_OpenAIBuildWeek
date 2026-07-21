@@ -1,0 +1,14 @@
+.runPanel{align-items:start;background:linear-gradient(135deg,#edf6ea 0%,#e7f0e8 100%)}
+.runPanel h2{max-width:540px}
+.runModes{border:0;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.runModes legend{font:12px 'DM Mono';letter-spacing:.06em;color:#55745b;margin-bottom:9px}
+.runMode{display:flex;gap:10px;align-items:flex-start;padding:13px;border:1px solid #cddccb;border-radius:9px;background:#f8fbf6;color:#263b2c;cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s}
+.runMode:hover{border-color:#6b9a70}
+.runMode.selected{background:#fff;border-color:#367244;box-shadow:0 0 0 2px #36724420}
+.runMode input{width:auto;margin:3px 0 0;accent-color:#1e6e3d}
+.runMode b,.runMode small{display:block}
+.runMode b{font-size:14px}
+.runMode small{font-size:12px;line-height:1.45;color:#647365;margin-top:4px}
+.runModeHelp{font-size:12px!important;color:#627365!important;margin:10px 0!important}
+.runMode.locked{background:#f4f5f2;border-style:dashed}.runWin{display:flex;gap:13px;align-items:center;margin-top:16px;padding:17px 19px;background:linear-gradient(135deg,#eaf7e7,#f6fbf0);border:1px solid #bfe0bd;border-radius:12px}.runWin>span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#2e8548;color:white;font-weight:800}.runWin div{flex:1}.runWin b{color:#245c35}.runWin p{margin:4px 0 0;color:#587060;font-size:13px;line-height:1.45}.runWin button{padding:10px 12px;border-radius:7px;background:#dcefd8;color:#28643a;font-weight:700;white-space:nowrap}
+@media(max-width:760px){.runModes{grid-template-columns:1fr}.runWin{align-items:flex-start;flex-wrap:wrap}.runWin button{width:100%}}

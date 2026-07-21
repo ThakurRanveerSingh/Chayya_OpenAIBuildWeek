@@ -1,0 +1,44 @@
+.numbersResearch { padding-top: 0; }
+.numbersResearchHero { background: linear-gradient(135deg, #e8f4eb, #f8f6e9); border: 1px solid #d7e7d8; border-radius: 1rem; display: grid; gap: 2rem; grid-template-columns: minmax(0, 1.25fr) minmax(15rem, .75fr); margin: 0 auto 1.4rem; max-width: 1110px; padding: clamp(1.5rem, 4vw, 3rem); }
+.numbersResearchHero h1 { color: #173321; font: 700 clamp(2.25rem, 5vw, 4.25rem)/.98 Fraunces, serif; letter-spacing: -.055em; margin: .6rem 0 1rem; }
+.numbersResearchHero p { color: #526b5a; line-height: 1.6; max-width: 43rem; }
+.numbersResearchHero aside { background: #183a2a; border-radius: .75rem; color: #ecf9ed; padding: 1.25rem; }
+.numbersResearchHero aside span, .numbersResearchStatus span { color: #8ed9a1; display: block; font: .66rem 'DM Mono', monospace; letter-spacing: .1em; }
+.numbersResearchHero aside b { display: block; font: 700 1rem Fraunces, serif; margin-top: .65rem; }
+.numbersResearchHero aside p { color: #d2e5d3; font-size: .78rem; margin: .3rem 0 .8rem; }
+.numbersResearchHero code { font-size: .7rem; }
+.numbersResearchEmpty, .researchRows, .numbersProposalAction, .numbersProposal, .numbersWriteProof, .numbersResearchStatus { margin-left: auto; margin-right: auto; max-width: 1110px; }
+.numbersResearchEmpty { background: #edf2e9; border-radius: .8rem; color: #47644d; padding: 1.5rem; }
+.numbersResearchStatus { display: grid; gap: .7rem; grid-template-columns: repeat(3, 1fr); margin-bottom: 1rem; }
+.numbersResearchStatus > div { background: #fff; border: 1px solid #dfe7dc; border-radius: .7rem; padding: .9rem; }
+.numbersResearchStatus b, .numbersResearchStatus small { display: block; }
+.numbersResearchStatus b { color: #264a32; font: 700 1.05rem Fraunces, serif; margin: .3rem 0; }
+.numbersResearchStatus small { color: #6b776e; font-size: .72rem; line-height: 1.4; }
+.researchRows, .numbersProposal, .numbersProposalAction { background: #fff; border: 1px solid #dfe7dc; border-radius: .85rem; margin-bottom: 1rem; padding: clamp(1rem, 2.5vw, 1.5rem); }
+.researchRows header, .numbersProposal header, .numbersProposalAction { align-items: start; display: flex; gap: 1rem; justify-content: space-between; }
+.researchRows h2, .numbersProposal h2, .numbersProposalAction h2 { color: #233e2a; font: 700 1.65rem Fraunces, serif; margin: .35rem 0; }
+.researchRows p, .numbersProposal p, .numbersProposalAction p { color: #68776a; font-size: .83rem; line-height: 1.5; margin: .4rem 0; }
+.researchRows > article { align-items: end; border-top: 1px solid #e4ebe1; display: grid; gap: .8rem; grid-template-columns: 1.2fr .65fr 1.35fr auto; padding: 1rem 0; }
+.researchRows > article:first-of-type { margin-top: 1rem; }
+.researchRows label { color: #384a3d; display: grid; font-size: .72rem; font-weight: 700; gap: .3rem; }
+.researchRows input { border: 1px solid #cad8ca; border-radius: .4rem; min-height: 2.3rem; padding: .45rem .55rem; }
+.researchQuery b, .researchQuery small { display: block; }
+.researchQuery b { color: #203b28; font-size: .92rem; }
+.researchQuery small { color: #708071; font-size: .74rem; margin: .25rem 0 .5rem; }
+.researchQuery button, .researchRows > article > button, .researchRows header > button { background: transparent; color: #236842; font-size: .73rem; font-weight: 700; padding: 0; text-decoration: underline; }
+.researchRows > article > .primary { font-size: .72rem; padding: .65rem .7rem !important; }
+.researchRows > article > small { color: #778579; font-size: .68rem; grid-column: 2 / -1; }
+.researchRows > article > .resultSaved { color: #177246; }
+.numbersProposalAction { align-items: center; }
+.numbersProposalAction .primary { flex: 0 0 auto; }
+.numbersProposal .confirm { max-width: 23rem; }
+.numbersProposal .dataTableWrap { margin-top: 1rem; }
+.numbersProposal a { color: #17663e; font-size: .75rem; }
+.numbersWriteButton { display: block; margin: 1rem 0 0 auto; }
+.numbersWriteProof { align-items: flex-start; background: #e2f4e5; border: 1px solid #b9ddbd; border-radius: .85rem; color: #245632; display: flex; gap: .9rem; margin-bottom: 3rem; padding: 1.2rem; }
+.numbersWriteProof > span { align-items: center; background: #247443; border-radius: 50%; color: #fff; display: inline-flex; font-weight: 800; height: 1.8rem; justify-content: center; width: 1.8rem; }
+.numbersWriteProof b { display: block; font: 700 1.1rem Fraunces, serif; }
+.numbersWriteProof p, .numbersWriteProof small { color: #477250; display: block; font-size: .78rem; line-height: 1.5; margin: .35rem 0; }
+
+@media (max-width: 850px) { .numbersResearchHero, .numbersResearchStatus { grid-template-columns: 1fr; } .researchRows > article { grid-template-columns: 1fr 1fr; } .researchQuery { grid-column: 1 / -1; } .researchRows > article > small { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .researchRows header, .numbersProposal header, .numbersProposalAction { align-items: stretch; flex-direction: column; } .researchRows > article { grid-template-columns: 1fr; } .numbersWriteButton { margin-left: 0; width: 100%; } }

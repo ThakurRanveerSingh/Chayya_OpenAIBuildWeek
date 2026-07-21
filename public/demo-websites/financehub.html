@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FinanceHub — Website 2 Demo Target</title>
+    <style>body{font-family:Arial,sans-serif;max-width:1050px;margin:48px auto;padding:0 24px;color:#16231a;background:#f7faf6}.tag{display:inline-block;background:#dcece6;color:#1f6244;padding:6px 9px;border-radius:5px;font-size:12px;font-weight:bold;letter-spacing:.06em}h1{margin:11px 0 6px}p{color:#536257;line-height:1.5}table{border-collapse:collapse;background:#fff;width:100%;box-shadow:0 8px 28px #1c35200d;margin-top:25px}th,td{padding:14px;text-align:left;border-bottom:1px solid #e2e9e1}th{background:#1e6e3d;color:#fff;font-size:13px}.empty{padding:20px;background:#fff4d8;color:#6d4b18;border-radius:8px;margin-top:24px}.status{color:#246238;font-weight:bold}</style>
+  </head>
+  <body>
+    <span class="tag">WEBSITE 2 · LOCAL DEMO TARGET</span><h1>FinanceHub</h1><p>Approved invoices mapped from the internal Excel master data.</p><div id="app" class="empty">Loading your FinanceHub queue…</div>
+    <script>
+      const token = localStorage.getItem('anukriti_session');
+      fetch('/api/backoffice/demo', { headers: token ? { Authorization: `Bearer ${token}` } : {} })
+        .then(response => response.ok ? response.json() : Promise.reject())
+        .then(data => {
+          const rows = data.financeHub || [];
+          document.getElementById('app').outerHTML = rows.length ? `<table aria-label="FinanceHub invoice queue"><thead><tr><th>Invoice</th><th>ERP vendor</th><th>Entity</th><th>Cost center</th><th>Amount</th><th>Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${row.invoiceId}</td><td>${row.vendorId}</td><td>${row.legalEntity}</td><td>${row.costCenter}</td><td>$${row.amount.toLocaleString()}</td><td class="status">${row.status}</td></tr>`).join('')}</tbody></table>` : '<div class="empty">No approved invoices have been loaded. Run the Back-office demo in Anukriti first.</div>';
+        })
+        .catch(() => { document.getElementById('app').textContent = 'Sign in to Anukriti and run the Back-office demo before opening this protected target page.'; });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "realm": "anukriti",
+  "enabled": true,
+  "displayName": "Anukriti Hackathon",
+  "roles": {
+    "realm": [
+      { "name": "admin", "description": "Manage users, roles, and audit records" },
+      { "name": "creator", "description": "Create, record, review, and manage owned jobs" },
+      { "name": "runner", "description": "Run owned approved jobs" },
+      { "name": "viewer", "description": "View owned jobs and artefacts" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "anukriti-web",
+      "name": "Anukriti Web",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://localhost:3001/*"],
+      "webOrigins": ["http://localhost:3001"]
+    }
+  ]
+}

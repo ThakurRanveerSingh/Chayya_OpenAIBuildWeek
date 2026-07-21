@@ -1,0 +1,232 @@
+/* Chayya's original historical visual system: the shadow of repeat work, not a film or game theme. */
+:root {
+  --ink: #182335;
+  --ink-deep: #091526;
+  --ink-soft: #314055;
+  --parchment: #f7f0e3;
+  --parchment-light: #fffaf0;
+  --sand: #e9d8b6;
+  --bronze: #a85c2e;
+  --bronze-dark: #743516;
+  --gold: #d7a44b;
+  --laurel: #476c5b;
+  --sea: #1c5361;
+  --danger: #a9472e;
+  color: var(--ink);
+  background: var(--parchment);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 5%, rgba(215, 164, 75, .20), transparent 25rem),
+    radial-gradient(circle at 94% 10%, rgba(28, 83, 97, .12), transparent 28rem),
+    repeating-linear-gradient(90deg, rgba(106, 70, 36, .024) 0 1px, transparent 1px 5px),
+    var(--parchment);
+  color: var(--ink);
+}
+
+button, input, textarea, select { font: inherit; }
+button { transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease; }
+button:not(:disabled):hover { transform: translateY(-1px); }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 3px solid rgba(215, 164, 75, .72);
+  outline-offset: 3px;
+}
+
+nav {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 250, 240, .84);
+  border-bottom: 1px solid rgba(116, 53, 22, .16);
+  box-shadow: 0 8px 30px rgba(38, 30, 17, .05);
+  height: 78px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav .brand {
+  align-items: center;
+  color: var(--ink-deep) !important;
+  display: inline-flex;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+  gap: .52rem;
+  letter-spacing: -.045em;
+  text-transform: lowercase;
+}
+nav .brand::before {
+  background: url('/brand/anukriti-odyssey-mark.svg') center / contain no-repeat;
+  content: '';
+  display: inline-block;
+  height: 2.15rem;
+  width: 2.15rem;
+}
+nav .brand span { color: var(--bronze); }
+nav button { color: #5a5e61; font-size: .77rem; letter-spacing: .015em; }
+nav .active { color: var(--bronze-dark); border-bottom: 2px solid var(--bronze); }
+nav i { background: #f2e0ba; color: var(--bronze-dark); }
+nav small { color: #6d665c; }
+
+.eyebrow, .back { color: var(--bronze-dark); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .67rem; font-weight: 800; letter-spacing: .14em; }
+.create h1, .libraryTitle h1, .workflowHead h1, .backOfficeHero h1, .resumeHero h1, .numbersResearchHero h1 {
+  color: var(--ink-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: -.06em;
+}
+.create p, .libraryTitle p, .workflowHead p, .backOfficeHero p, .resumeHero p, .numbersResearchHero p { color: #596474; }
+
+.create form, .flow article, .stepsPanel, .optimization, .recordingReliability, .resumeForm, .resumeMatrix, .resumeSuggestions, .resumeExport, .researchRows, .numbersProposal, .numbersProposalAction, .targetGrid article, .decisionPanel {
+  background: rgba(255, 250, 240, .86);
+  border-color: rgba(116, 53, 22, .16);
+  box-shadow: 0 12px 28px rgba(54, 38, 18, .055);
+}
+.create form, .flow article, .workflowCard, .backOfficeFlow article, .targetGrid article, .researchRows, .numbersProposal, .numbersProposalAction { position: relative; overflow: hidden; }
+.create form::before, .flow article::before, .workflowCard::before, .backOfficeFlow article::before, .targetGrid article::before, .researchRows::before, .numbersProposal::before, .numbersProposalAction::before {
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  content: '';
+  height: 1px;
+  left: 16px;
+  opacity: .45;
+  position: absolute;
+  right: 16px;
+  top: 0;
+}
+.create input, .create textarea, .resumeForm input, .resumeForm textarea, .researchRows input, input, textarea {
+  background: rgba(255, 253, 247, .9);
+  border-color: rgba(116, 53, 22, .26);
+  color: var(--ink-deep);
+}
+.create input:focus, .create textarea:focus, .resumeForm input:focus, .resumeForm textarea:focus, .researchRows input:focus { border-color: var(--bronze); box-shadow: 0 0 0 3px rgba(215, 164, 75, .18); }
+.adapterNote, .empty, .numbersResearchEmpty { background: #efe4cd; color: #604d35; }
+
+.primary, .authSubmit {
+  background: linear-gradient(135deg, #b86933, #843b1e) !important;
+  border: 1px solid rgba(92, 38, 15, .65) !important;
+  box-shadow: 0 .35rem 0 #5f270f, 0 .85rem 1.4rem rgba(88, 39, 17, .16) !important;
+  color: #fffaf0 !important;
+  font-weight: 800;
+}
+.primary:not(:disabled):hover, .authSubmit:not(:disabled):hover { background: linear-gradient(135deg, #cd7a3c, #93441f) !important; box-shadow: 0 .18rem 0 #5f270f, 0 .65rem 1.4rem rgba(88, 39, 17, .16) !important; transform: translateY(.17rem); }
+.flow button, .code button, .feedback button, .resumeActions button, .analyticsPanel button { background: #eee1c9; color: var(--bronze-dark); }
+.linkButton { color: var(--bronze-dark) !important; }
+
+.workflowHead { border-color: rgba(116, 53, 22, .17); }
+.status { background: #e5f0e5; color: #326146; }
+.status.Recording { background: #f9e5d4; color: #93441f; }
+.notice { background: #e7f0e4; border-color: #bad2b7; color: #315f43; }
+.error, .authError { color: #9f3928; }
+.runPanel { background: linear-gradient(135deg, #e9efe8, #f6eddb); border-color: rgba(71, 108, 91, .24); }
+.runResult, .code { background: var(--ink-deep); }
+.runResult b, .code header { color: #e8c985; }
+.runResult small, .code pre { color: #e7edf2; }
+.workflowCard { background: rgba(255, 250, 240, .9); border-color: rgba(116, 53, 22, .17); box-shadow: 0 10px 23px rgba(54, 38, 18, .045); }
+.workflowCard:hover { border-color: var(--gold); box-shadow: 0 16px 28px rgba(54, 38, 18, .12); }
+.workflowCard .surface { color: var(--bronze); }
+
+/* Chronicle path: concrete evidence determines progression, never decorative points. */
+.jobJourney {
+  background:
+    radial-gradient(circle at 89% 15%, rgba(215, 164, 75, .30), transparent 10rem),
+    linear-gradient(125deg, #fbf4e5, #edf1e6);
+  border-color: rgba(116, 53, 22, .24);
+  box-shadow: 0 14px 32px rgba(54, 38, 18, .07);
+}
+.jobJourney h2, .matchdayCoach h2, .stepsPanel h2, .optimization h2, .recordingReliability h2, .backOfficeFlow h2, .analyticsPanel h2, .decisionPanel h2, .targetGrid h2, .resumeForm h2, .resumeMatrix h2, .resumeSuggestions h2, .resumeExport h2, .researchRows h2, .numbersProposal h2, .numbersProposalAction h2 { color: var(--ink-deep); font-family: Georgia, "Times New Roman", serif; }
+.jobJourney li { background: rgba(255, 252, 246, .86); border-color: rgba(116, 53, 22, .14); color: #66706d; }
+.jobJourney li.done { background: #e6f0e4; border-color: #a7c4a5; color: #2f6545; }
+.jobJourney li.blocked { background: #f9eadf; border-color: #e5b79a; color: #9d4429; }
+.jobJourney li>span { background: #eee1c9; color: var(--bronze-dark); }
+.jobJourney li.done>span { background: var(--laurel); }
+.jobJourney li.blocked>span { background: var(--danger); }
+.journeyStatus { background: rgba(255, 251, 243, .88); border-color: rgba(116, 53, 22, .18); color: #3d654e; }
+.journeyStatus.blocked { background: #fbede4; border-color: #e5b79a; color: #9d4429; }
+.journeyAction { border-color: rgba(116, 53, 22, .14); }
+
+.matchdayCoach {
+  background:
+    radial-gradient(circle at 88% 18%, rgba(235, 190, 103, .26), transparent 10rem),
+    linear-gradient(125deg, #0b2237, #1d5360 66%, #8f4d23 170%);
+  border: 1px solid rgba(215, 164, 75, .45);
+  box-shadow: 0 16px 33px rgba(10, 27, 40, .18);
+}
+.matchdayCoach .eyebrow { color: #f1ce8c; }
+.matchdayCoach h2 { color: #fff5e2; }
+.matchdayCoach header p { color: #d9e8e5; }
+.matchdayBot { background: url('/brand/anukriti-odyssey-mark.svg') center / cover no-repeat; border: 1px solid rgba(245, 216, 150, .55); box-shadow: 0 12px 24px rgba(0, 12, 26, .5); }
+.matchdayBot span { font-size: 0; }
+.matchdayBot i { background: var(--gold); border-color: #fff4df; color: var(--ink-deep); }
+.waitCards article { background: rgba(255, 250, 240, .10); border-color: rgba(245, 216, 150, .26); }
+.waitCards article>span { color: #f0ce8d; }
+.waitCards button, .liveWaitActions button { background: #f8ecd4; color: var(--bronze-dark); }
+.liveCoach { background: linear-gradient(125deg, #18213d, #285867 66%, #9c5524 170%); }
+
+.backOfficeHero, .resumeHero { border-color: rgba(116, 53, 22, .17); }
+.backOfficeHero aside { background: linear-gradient(145deg, #142d43, #265761); border: 1px solid rgba(215, 164, 75, .38); }
+.resumeHero aside { background: linear-gradient(145deg, #20304e, #4c5d76); border: 1px solid rgba(215, 164, 75, .34); }
+.backOfficeFlow article, .analyticsPanel, .decisionPanel, .targetGrid article { border-color: rgba(116, 53, 22, .16); }
+.analyticsPanel { background: linear-gradient(135deg, #edf2e9, #f7eedc); }
+.metricGrid div { background: rgba(255, 251, 244, .9); }
+.metricGrid b { color: var(--bronze-dark); }
+.throughputBars b { background: var(--laurel); }
+.throughputBars .exceptionBar { background: var(--bronze); }
+.decision.Passed, .resumeStatus.Evidenced { background: #e1efdc; color: #2c6543; }
+.decision.Exception, .resumeStatus.Notevidenced { background: #faeadb; color: #8b4823; }
+.sourcePreview span, .suggestionList label, .resumeIntent>div { background: #f7efdf; }
+
+.numbersResearchHero { background: linear-gradient(135deg, #e9f0e8, #fbefd8); border-color: rgba(116, 53, 22, .20); box-shadow: 0 14px 30px rgba(54, 38, 18, .06); }
+.numbersResearchHero aside { background: linear-gradient(145deg, #142d43, #265761); border: 1px solid rgba(215, 164, 75, .38); }
+.numbersResearchStatus > div { background: rgba(255, 251, 244, .9); border-color: rgba(116, 53, 22, .17); }
+.numbersWriteProof { background: #e4f0e3; border-color: #b6cfb5; color: #285e41; }
+.numbersWriteProof > span { background: var(--laurel); }
+
+/* Authentication: a bronze-and-sea workshop replaces the earlier sports screen. */
+.authStadium {
+  --stadium-navy: #0a1627;
+  --stadium-ink: var(--ink-deep);
+  --stadium-grass: var(--laurel);
+  --stadium-mint: #d9e8d4;
+  --stadium-gold: var(--gold);
+  --stadium-cream: #fff8ea;
+  background:
+    radial-gradient(circle at 17% 12%, rgba(215, 164, 75, .20), transparent 26rem),
+    radial-gradient(circle at 86% 88%, rgba(56, 120, 126, .28), transparent 30rem),
+    linear-gradient(135deg, #071525, #132f45 56%, #18273b);
+}
+.authStadium::before { background: repeating-radial-gradient(ellipse at center, transparent 0 2.2rem, rgba(239, 201, 127, .06) 2.3rem 2.38rem); }
+.authStadium::after { border-color: rgba(239, 201, 127, .16); }
+.stadiumGlowOne { background: rgba(215, 164, 75, .34); box-shadow: 0 0 7rem 3rem rgba(215, 164, 75, .16); }
+.stadiumGlowTwo { background: rgba(122, 178, 164, .25); box-shadow: 0 0 9rem 3rem rgba(122, 178, 164, .12); }
+.pitchLines { border-color: rgba(239, 201, 127, .13); }
+.authWordmark { font-family: Georgia, "Times New Roman", serif; font-size: 1.05rem; letter-spacing: .05em; }
+.authMark { background: url('/brand/anukriti-odyssey-mark.svg') center / cover no-repeat; border-radius: .65rem; box-shadow: 0 .45rem 1.2rem rgba(0, 0, 0, .35); height: 2.2rem; width: 2.2rem; }
+.authKicker { color: #f1ce8c; }
+.authWelcome h1 { font-family: Georgia, "Times New Roman", serif; letter-spacing: -.065em; }
+.authScoreboard { background: rgba(5, 20, 35, .58); border-color: rgba(239, 201, 127, .26); }
+.scoreboardHeader { background: rgba(215, 164, 75, .13); border-color: rgba(239, 201, 127, .18); }
+.scoreboardHeader b { color: #f1ce8c; }
+.authScoreboard li > span { background: #1d5960; border-color: rgba(239, 201, 127, .48); color: #f7dfaa; }
+.authCard { box-shadow: 0 1.6rem 4.5rem rgba(0, 0, 0, .32), .55rem .55rem 0 var(--gold); }
+.authCardTop span:last-child, .authCard .eyebrow, .authSwitch { color: var(--bronze-dark) !important; }
+.authStatusDot { background: var(--laurel); box-shadow: 0 0 0 .22rem rgba(71, 108, 91, .16); }
+.authCard input:focus { border-color: var(--bronze); box-shadow: 0 0 0 .22rem rgba(215, 164, 75, .20); }
+
+@media (max-width: 860px) {
+  nav { align-items: center; height: auto; min-height: 72px; padding: .6rem 1rem; }
+  nav > div { display: flex; flex: 1; gap: .1rem; overflow-x: auto; }
+  nav > div button { flex: 0 0 auto; }
+  nav small { display: none; }
+}
+@media (max-width: 1050px) {
+  .authFrame { gap: 2.5rem; grid-template-columns: minmax(0, 1fr); max-width: 44rem; }
+  .authWelcome { max-width: 40rem; }
+  .authKicker { margin-top: 2.4rem; }
+  .authWelcome h1 { font-size: clamp(3rem, 9vw, 4.75rem); max-width: 12ch; }
+}
+@media (max-width: 600px) {
+  nav .brand { font-size: 1.15rem; }
+  nav .brand::before { height: 1.75rem; width: 1.75rem; }
+  .create h1, .backOfficeHero h1, .resumeHero h1, .numbersResearchHero h1 { font-size: clamp(2.8rem, 14vw, 4.2rem); }
+  .jobJourney li { min-height: 7.6rem; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }

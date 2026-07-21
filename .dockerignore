@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+.env
+infra/.env.hackathon
+data
+automations
+output
+playwright-report
+test-results

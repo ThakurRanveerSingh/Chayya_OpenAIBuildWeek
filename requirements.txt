@@ -1,0 +1,2 @@
+# Node.js is the primary runtime. This file is intentionally reserved for
+# optional Python data-adapter experiments.

@@ -1,0 +1,37 @@
+{
+  "name": "anukriti",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm:server\" \"npm:client\"",
+    "server": "node --watch server/index.js",
+    "client": "vite --host 0.0.0.0",
+    "start": "node server/index.js",
+    "build": "vite build",
+    "test": "node server/run-tests.js",
+    "check": "npm test && npm run test:desktop && npm run build",
+    "desktop": "electron electron/main.cjs",
+    "test:desktop": "node --test electron/security.test.cjs",
+    "record": "playwright codegen --target=playwright-test",
+    "install:browser": "playwright install chromium"
+  },
+  "dependencies": {
+    "docx": "^9.7.1",
+    "dotenv": "^16.6.1",
+    "exceljs": "^4.4.0",
+    "express": "^5.1.0",
+    "mammoth": "^1.12.0",
+    "multer": "^2.2.0",
+    "playwright": "^1.55.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@vitejs/plugin-react": "^5.0.2",
+    "concurrently": "^9.2.1",
+    "electron": "^37.2.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "vite": "^7.1.4"
+  }
+}

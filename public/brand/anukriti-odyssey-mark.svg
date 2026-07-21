@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Chayya crest</title>
+  <desc id="desc">An original bronze helmet and laurel emblem over a midnight sea.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#132843"/>
+      <stop offset="1" stop-color="#06111f"/>
+    </linearGradient>
+    <linearGradient id="bronze" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f6d28d"/>
+      <stop offset=".34" stop-color="#bd7a35"/>
+      <stop offset=".72" stop-color="#7b3f1d"/>
+      <stop offset="1" stop-color="#e8bd70"/>
+    </linearGradient>
+    <linearGradient id="crest" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#f5d896"/>
+      <stop offset="1" stop-color="#a55b27"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="256" height="256" rx="54" fill="url(#sky)"/>
+  <circle cx="128" cy="126" r="91" fill="none" stroke="#d8a95e" stroke-opacity=".22" stroke-width="2"/>
+  <circle cx="128" cy="126" r="76" fill="none" stroke="#f1cf8c" stroke-opacity=".10"/>
+  <path d="M34 199c20-7 37-7 54 0s34 7 51 0 34-7 51 0 34 7 54 0v24H34z" fill="#0a1b2d"/>
+  <path d="M35 202c22-5 38-5 54 0 17 5 34 5 51 0 17-5 34-5 51 0 17 5 33 5 53 0" fill="none" stroke="#d7a35c" stroke-linecap="round" stroke-opacity=".7" stroke-width="3"/>
+  <g fill="none" stroke="url(#bronze)" stroke-linecap="round" stroke-width="7">
+    <path d="M78 181c-22-22-28-51-17-81"/>
+    <path d="M69 106 46 94m18 34-27-3m31 29-24 8"/>
+    <path d="M178 181c22-22 28-51 17-81"/>
+    <path d="m187 106 23-12m-18 34 27-3m-31 29 24 8"/>
+  </g>
+  <g transform="translate(52 33)">
+    <path d="M74 8 91 40 83 67l14 23-16 64H27L12 128l9-65L14 40 33 8l20 12z" fill="#091827" stroke="url(#bronze)" stroke-linejoin="round" stroke-width="7"/>
+    <path d="m45 18 13 10 13-10-9 26H54z" fill="url(#crest)"/>
+    <path d="M29 69c14 8 34 8 51 0l-6 27-45 8z" fill="#132a3d" stroke="url(#bronze)" stroke-linejoin="round" stroke-width="5"/>
+    <path d="M40 106h39l-8 31H48z" fill="url(#bronze)"/>
+    <path d="M77 105 97 90l-12 34-11 8z" fill="url(#crest)" stroke="#e9c47f" stroke-linejoin="round" stroke-width="3"/>
+    <path d="M57 29v103" fill="none" stroke="#f1d28d" stroke-opacity=".65" stroke-width="3"/>
+  </g>
+  <path d="m128 36 8 25 25 8-25 8-8 25-8-25-25-8 25-8z" fill="#f5d896" filter="url(#glow)" opacity=".92"/>
+  <rect x="15" y="15" width="226" height="226" rx="43" fill="none" stroke="#f3d693" stroke-opacity=".28"/>
+</svg>
