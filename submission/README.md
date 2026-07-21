@@ -1,85 +1,104 @@
-# Project Name
+# Chayya — The Shadow of Your Best Work
 
-> Replace this line with a one-sentence description of your project.
+> Do a task once. Review the evidence. Reuse the job.
 
-## Overview
+Chayya is a local-first workflow automation companion for people who repeat browser and desktop-adjacent work. It records a browser task once, turns the capture into a plain-English SOP and Rule Book, lets the owner review and safely optimize it, then reruns the approved job visibly or in the background. Every important decision, rule, and run is inspectable.
 
-Describe the problem your project solves, who it serves, and the main user outcome. Include the key features a judge should try first.
+## What judges should try
+
+1. **Record → review → reuse:** Create a browser job, complete it once in the visible Playwright recorder, then review the exact recorded steps, SOP, Rule Book, and generated Playwright code.
+2. **Safe optimization:** Select **Review & optimize job**. Chayya preserves the original and only removes exact adjacent duplicate navigation or form-entry actions. Compare the original with the transparent optimized version before running it.
+3. **Visible proof:** Run the saved workflow in a visible browser, confirm the run, and inspect its result and history. Background replay is available only after that saved version has passed visibly.
+4. **Stable demo jobs:** From **New browser job**, choose **Add five stable demo jobs (recommended)** for a reliable first-party demonstration with no third-party login, CAPTCHA, purchase, or live-data dependency.
+5. **Back-office demo:** Select **Back-office demo** to see a local invoice-routing workflow: source website → explainable decision → Excel mapping → FinanceHub or ExceptionDesk target → built-in analytics.
+6. **Optional macOS Numbers bridge:** On macOS, open the included Numbers workbook and use **Numbers bridge** to inspect an active table or run the template-driven research workflow. The bridge only writes user-approved values to a designated results table.
 
 ## Demo
 
-- Live app or test link: `https://replace-with-your-demo-url`
-- Demo video: `https://youtube.com/replace-with-your-video-url`
+- Live app: local-first MVP; run it locally using the instructions below.
+- Demo video: not included in this repository.
+- Repository: <https://github.com/ThakurRanveerSingh/OpenAI_Build_Week_Chayya>
+- Judge walkthrough: [docs/DEMO_RUNBOOK.md](../docs/DEMO_RUNBOOK.md)
 
 ## Prerequisites
 
-List everything a reviewer needs before running the project. For example:
-
-- Node.js 20 or later
+- Node.js 20 or later (Node 24 used in development)
 - npm 10 or later
-- An API key for any third-party service used by the app
+- macOS or Windows for the Electron desktop shell
+- Internet access only to download Playwright Chromium during setup; the stable demo jobs themselves are local
+
+No OpenAI API key, production account, or real business credentials are required for the included demos.
 
 ## Setup
 
-1. Clone the repository.
+1. Clone the repository and enter the project folder.
 
    ```bash
-   git clone <YOUR_REPOSITORY_URL>
-   cd <YOUR_PROJECT_DIRECTORY>
+   git clone https://github.com/ThakurRanveerSingh/OpenAI_Build_Week_Chayya.git
+   cd OpenAI_Build_Week_Chayya
    ```
 
-2. Install dependencies.
+2. Install dependencies and the browser used by the recorder.
 
    ```bash
    npm install
+   npm run install:browser
    ```
 
-3. Create a local environment file and add the required values. Do not commit secrets.
+3. Optionally create a local environment file. The base demo works without secrets.
 
    ```bash
    cp .env.example .env
    ```
 
-4. Update `.env` with the required credentials and configuration. Document every variable here:
-
-   ```text
-   OPENAI_API_KEY=your_api_key
-   # Add other variables required by this project.
-   ```
+   Never commit `.env` or any account credentials. The POSable integration is optional and uses rotating public-demo credentials when configured.
 
 ## Run locally
 
-Start the project with:
+Start the app:
 
 ```bash
 npm run dev
 ```
 
-Open the local URL printed in the terminal, then try this suggested judge flow:
+Open <http://localhost:5173>, create an account, and choose **New browser job** → **Add five stable demo jobs (recommended)**. Record and review one of these first-party jobs, optimize it, confirm a visible run, and inspect the run history.
 
-1. [Describe the first action.]
-2. [Describe the expected result.]
-3. [Describe the feature that demonstrates the project’s core value.]
+To open the desktop shell, leave the development server running and use a second terminal:
 
-Replace these commands and steps if your project uses a different stack or run procedure.
+```bash
+npm run desktop
+```
 
 ## Testing
 
-Run the automated checks with:
+Run the complete local verification suite and production build:
 
 ```bash
-npm test
+npm run check
 ```
 
-Add any manual testing notes, seed data, test credentials, or platform limitations needed for judging.
+This runs serial unit tests, API integration tests, browser end-to-end tests, the Electron security test, and a Vite production build.
+
+## Safety and scope
+
+Chayya is intentionally a local hackathon MVP, not an internet-facing automation service. It includes account roles, job ownership, protected script downloads, audit history, target URL checks, sensitive-value redaction, request limits, and job timeouts. It does not claim universal desktop/mobile recording or production multi-tenant security. See [docs/THREAT_MODEL.md](../docs/THREAT_MODEL.md) for the full boundary.
+
+The macOS Numbers bridge is a narrow, user-approved workflow: it does not write arbitrary cells, formulas, or chart definitions. The Resume tailor produces a separate review copy, preserves the source resume, and does not invent experience.
 
 ## How GPT-5.6 and Codex were used
 
-This project was built with Codex using GPT-5.6 as a collaborative development partner. Codex helped translate the product idea into an implementation plan, generate and refine application code, troubleshoot issues, and improve the project documentation.
+GPT-5.6 and Codex were used as collaborative engineering tools throughout the project. They helped turn the initial “teach an agent once, then rerun it” idea into a concrete workflow-automation architecture; scaffold the React, Electron, Express, Playwright, and local-storage components; and iterate on the record → review → optimize → visible-run experience.
 
-Throughout development, GPT-5.6 and Codex accelerated iteration by helping evaluate implementation options, identify edge cases, and turn feedback into focused changes. The final project was reviewed and tested by the project team; Codex was used to speed up the build process while the team made the product, engineering, and design decisions.
+Specific implementation support included generating and refining the Playwright recording and replay paths, designing the transparent SOP/Rule Book and optimization rules, implementing local back-office and Numbers-demo adapters, writing safety checks/redaction tests, troubleshooting the Playwright browser-runtime setup, and producing the demo and architecture documentation. Project decisions, scope boundaries, and final review remained human-directed.
 
-Before submission, replace or expand this section with specific examples from your project, such as the features Codex helped implement, important technical decisions, debugging sessions, and improvements made after testing.
+## Further documentation
+
+- [Architecture HLD](../docs/ARCHITECTURE-HLD.md)
+- [Architecture LLD](../docs/ARCHITECTURE-LLD.md)
+- [Back-office demo](../docs/BACKOFFICE_DEMO.md)
+- [Numbers workflow](../docs/NUMBERS_DESKTOP_WORKFLOW.md)
+- [Release checklist](../docs/RELEASE_CHECKLIST.md)
+- [GPT-5.6 capability record](../testingnewGPTFeatures.md)
 
 ## Repository access for judges
 
@@ -87,7 +106,3 @@ If this repository is private, grant access to:
 
 - `testing@devpost.com`
 - `build-week-event@openai.com`
-
-## License
-
-Add your project license here.
