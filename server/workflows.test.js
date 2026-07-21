@@ -86,6 +86,11 @@ test('creates five repeatable first-party demo jobs only once per owner', () => 
   assert.equal(created.length, 5);
   assert.ok(created.every(workflow => workflow.controlledDemo && workflow.status === 'Ready to run' && workflow.recordingReliability.ok));
   assert.ok(created.every(workflow => workflow.script && fs.existsSync(path.resolve('automations', workflow.script))));
+  assert.ok(created.every(workflow => workflow.recordingFile && workflow.sop?.filename && fs.existsSync(path.resolve('automations', workflow.sop.filename))));
+  const student = created.find(workflow => workflow.controlledDemoKey === 'anukriti-study-brief');
+  const teacher = created.find(workflow => workflow.controlledDemoKey === 'teacher-lesson-brief');
+  assert.deepEqual(student.intent.safeguards, ['Use trusted sources chosen by the learner or teacher.', 'Keep explanations in the learner’s own words.', 'Review gaps with a teacher or peer before treating the work as complete.']);
+  assert.deepEqual(teacher.intent.safeguards, ['Teacher selects and verifies trusted sources.', 'Teacher reviews activities and learner supports.', 'Teacher approves the brief before classroom use.']);
   assert.match(created[0].startUrl, /^http:\/\/127\.0\.0\.1:3131\/demo-websites\/anukriti-/);
   assert.equal(createControlledDemoWorkflows(db, 'owner-1', 'http://127.0.0.1:3131').length, 0);
 });

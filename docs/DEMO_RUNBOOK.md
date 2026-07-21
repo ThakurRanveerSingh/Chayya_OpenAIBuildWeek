@@ -56,6 +56,26 @@ To demonstrate Anukriti's separate browser-recording capability:
 
 This sequence honestly demonstrates both product capabilities: recorded browser productivity jobs and the prebuilt 10-record back-office automation.
 
+## Education workflow walkthrough
+
+Use **New browser job** → **Add five stable demo jobs (recommended)**. The two education jobs are created with a capture, an SOP/Rule Book, and a generated replay script already in place; their files are written to `automations/` when the jobs are added.
+
+### Student Study Brief — Find → Explain → Check
+
+1. Open **Demo: Study brief builder** and select **Visible browser**.
+2. In the local page, enter a study topic, a learning goal, what the learner already knows, and a source preference.
+3. Select **Build study brief**. Point out the three steps: start with a trusted source, explain in the learner’s own words, and take one open question to a teacher or peer.
+4. Return to Chayya. Open the job’s intent card, generated code, and SOP/Rule Book. Explain that the durable automation artifact records the routine, while the on-page brief is the learner’s human-reviewable prompt.
+
+### Teacher Lesson-Plan Brief — reusable preparation
+
+1. Open **Teacher: lesson-plan research brief** and select **Visible browser**.
+2. Enter grade level, lesson topic, learning objective, lesson duration, and a learner-support approach.
+3. Select **Build lesson brief**. Point out the source-selection, activity, learner-check, and explicit teacher-review elements.
+4. Return to Chayya and inspect the teacher-specific safeguards in the intent card and SOP/Rule Book. Explain that the teacher remains responsible for sources, accommodations, assessment, and classroom use.
+
+For either workflow, the exact capture (`*-recording.spec.js`), reusable Playwright script (`*-v*.spec.js`), and SOP/Rule Book (`*.sop.md`) are saved in `automations/`. Job intent, audit events, and replay history are saved in the runtime-only `data/anukriti.json`. The study/lesson brief remains visible on the controlled demo page rather than being treated as a submitted assignment, a grade, or an autonomous classroom decision.
+
 ## Recovery if a demo step fails
 
 - If the app does not open, confirm `npm run dev` is still running, then reload `http://localhost:5173`.
