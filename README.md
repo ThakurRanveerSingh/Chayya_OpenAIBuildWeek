@@ -4,6 +4,8 @@
 
 Chayya records a browser workflow with Playwright, automatically creates a detailed SOP and Rule Book from every completed capture, presents the captured steps in plain English, saves a transparent optimized version, and lets the job owner run it again with explicit confirmation.
 
+Repository: <https://github.com/ThakurRanveerSingh/Chayya_OpenAIBuildWeek> · License: [MIT](LICENSE) · Judge-facing technical implementation: [submission/TECHNICAL_IMPLEMENTATION.md](submission/TECHNICAL_IMPLEMENTATION.md)
+
 ## Built with Codex + GPT-5.6
 
 Codex with GPT-5.6 was used as the project’s collaborative software-engineering partner. It accelerated the path from product idea to a tested MVP by helping translate requirements into an implementable architecture, generate and refine the code, investigate failures, and turn testing feedback into small, verifiable improvements. It is not an end-user runtime dependency: Chayya’s included demos run locally without an OpenAI API key or model call.
@@ -18,6 +20,8 @@ Codex with GPT-5.6 was used as the project’s collaborative software-engineerin
 | **Quality and debugging** | Helped troubleshoot recorder/browser-runtime setup, write tests, review security boundaries, and refine documentation. | `npm run check` exercises unit, integration, browser, Electron-security, and production-build checks. |
 
 Human direction remained central: the project owner chose the scope, safety boundaries, demos, and product decisions; Codex accelerated implementation and iteration. See [testingnewGPTFeatures.md](testingnewGPTFeatures.md) for the capability record.
+
+The complete high-level and low-level design decisions, including the intent-to-implementation path and concrete Codex/GPT-5.6 acceleration points, are in [submission/TECHNICAL_IMPLEMENTATION.md](submission/TECHNICAL_IMPLEMENTATION.md).
 
 
 ## Run locally
@@ -112,3 +116,7 @@ npm run desktop
 ## Free hackathon stack
 
 For a local production-shaped demonstration using free Keycloak, PostgreSQL, Prometheus, and Grafana containers, see [the free hackathon deployment profile](docs/FREE_HACKATHON_DEPLOYMENT.md). This stack is local-only and does not make the app public-production ready.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

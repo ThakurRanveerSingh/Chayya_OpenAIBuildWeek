@@ -30,8 +30,10 @@ The project owner made the product, demo, and safety decisions; Codex accelerate
 
 - Live app: local-first MVP; run it locally using the instructions below.
 - Demo video: not included in this repository.
-- Repository: <https://github.com/ThakurRanveerSingh/OpenAI_Build_Week_Chayya>
+- Repository: <https://github.com/ThakurRanveerSingh/Chayya_OpenAIBuildWeek>
+- License: [MIT](../LICENSE)
 - Judge walkthrough: [docs/DEMO_RUNBOOK.md](../docs/DEMO_RUNBOOK.md)
+- Technical implementation, HLD/LLD, intent path, and Codex record: [TECHNICAL_IMPLEMENTATION.md](TECHNICAL_IMPLEMENTATION.md)
 
 ## Prerequisites
 
@@ -47,8 +49,8 @@ No OpenAI API key, production account, or real business credentials are required
 1. Clone the repository and enter the project folder.
 
    ```bash
-   git clone https://github.com/ThakurRanveerSingh/OpenAI_Build_Week_Chayya.git
-   cd OpenAI_Build_Week_Chayya
+   git clone https://github.com/ThakurRanveerSingh/Chayya_OpenAIBuildWeek.git
+   cd Chayya_OpenAIBuildWeek
    ```
 
 2. Install dependencies and the browser used by the recorder.
