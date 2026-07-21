@@ -6,7 +6,6 @@ Chayya records a browser workflow with Playwright, automatically creates a detai
 
 Repository: <https://github.com/ThakurRanveerSingh/Chayya_OpenAIBuildWeek> · [Public demo video](https://youtu.be/kW2c6ehcV4w) · License: [MIT](LICENSE) · Judge-facing technical implementation: [submission/TECHNICAL_IMPLEMENTATION.md](submission/TECHNICAL_IMPLEMENTATION.md)
 
-Youtube Link: https://youtu.be/kW2c6ehcV4w
 Feedback session id -- 019f6395-7573-7091-a497-76c5b97f51c6
 
 ## Education workflows
